@@ -2,10 +2,10 @@
   <div class="header">
     <div class="header-left">MyFace</div>
     <div class="header-right">
-      <router-link to='/'>首页</router-link>
-      <router-link to='/facephoto'>照片录取</router-link>
-      <router-link to='/facevideo'>视频录取</router-link>
-      <router-link to='/facerecognize'>信息</router-link>
+      <router-link class="header-right-item" to='/home'>首页</router-link>
+      <router-link class="header-right-item" to='/facephoto'>照片录取</router-link>
+      <router-link class="header-right-item" to='/facevideo'>视频录取</router-link>
+      <router-link class="header-right-item" to='/facerecognize'>信息</router-link>
     </div>
   </div>
 </template>
@@ -24,7 +24,6 @@ export default {
   color: white;
   display: flex;
   justify-content: center;
-
   line-height: 40px;
   // padding: 0 50px 0 50px;
   .header-left{
@@ -37,9 +36,31 @@ export default {
     width: 35%;
     font-size: 12px;
     font-weight: 600;
+    height: 100%;
     a{
+      height:34px;
+      display: inline-block;
+      line-height: 34px;
       color:white;
       margin: 0 10px;
+    }
+    .router-link-active{
+      border-bottom: 1px solid white;
+    }
+  }
+}
+
+@media screen and (max-width: 700px){
+  .header{
+    display: flex;
+    justify-content: left;
+    .header-left{
+      width: 53%;
+      padding:0;
+      text-align: center;
+    }
+    .header-right{
+      width:80%;
     }
   }
 }
