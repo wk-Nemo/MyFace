@@ -1,7 +1,7 @@
 <template>
   <div class="facephoto">
     <div id="photo">
-      <h3>请选择你的照片</h3>
+      <h3 class="photo-title">请选择你的照片</h3>
       <img
         id="Img"
         :src=imgUrl
@@ -51,6 +51,8 @@ export default {
         width: img.width,
         height: img.height
       }
+      canvas.setAttribute('class', 'mycanvas')
+      canvas.style = `position:absolute; left:50%; margin-left:${-img.width / 2}px`
       document.getElementById('photo').append(canvas)
       // 设置面部特征点和画布匹配
       faceapi.matchDimensions(canvas, displaySize)
@@ -73,13 +75,6 @@ export default {
     }
   },
   mounted () {
-    // Promise.all([
-    //   faceapi.nets.faceRecognitionNet.loadFromUri('../../models'),
-    //   faceapi.nets.faceLandmark68Net.loadFromUri('../../models'),
-    //   faceapi.nets.ssdMobilenetv1.loadFromUri('../../models')
-    // ]).then(async () => {
-    //   console.log('success')
-    // })
     getModels()
   }
 }
@@ -92,9 +87,16 @@ export default {
   color:white;
   #photo {
     height: 300px;
+    position: relative;
+    text-align: center;
+    .photo-title{
+      font-size: 20px;
+      font-weight: 900;
+      line-height: 20px;
+    }
     #Img {
       height: 100%;
-    }
+    };
   }
 }
 </style>
