@@ -18,6 +18,7 @@ export default {
 <style>
 #app{
   height: 100%;
+  background-color: #2d2d2d;
 }
 body{
   height: 100%;

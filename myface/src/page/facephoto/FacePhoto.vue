@@ -24,7 +24,9 @@
         负数据库
       </div>
       <!-- 局部排序加密 -->
-      <div class="upload">
+      <div class="upload"
+        @click="getOrderingEncrypt"
+      >
         局部排序
       </div>
     </div>
@@ -35,6 +37,7 @@
 import * as faceapi from 'face-api.js'
 import { getModels } from '../../util/getface.js'
 import { MyNDB } from '../../util/getNDB.js'
+const encrypt = require('ordering-encrypt')
 export default {
   name: 'FacePhoto',
   data () {
@@ -86,6 +89,19 @@ export default {
           console.log(this.descriptor[0][i])
           console.log(ndb.trueGen[i])
         }
+      }
+    },
+    getOrderingEncrypt: function () {
+      if (this.descriptor[0] === undefined) {
+        alert('请先上传照片')
+      } else {
+        let ndb = new MyNDB(this.descriptor[0])
+        // console.log(ndb.before_s);
+        let data = String(ndb.before_s).split('').map(a => { return Number(a) })
+        let p = new Array(data.length).fill(0)
+        let final = encrypt.decode(data, p)
+        console.log('encrypt data:', final.join(''), 'keydata:', p.join(''))
+        // final为人脸加密后的结果，p为密钥
       }
     }
   },
