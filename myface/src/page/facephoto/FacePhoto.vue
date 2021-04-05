@@ -66,10 +66,10 @@ export default {
   },
   methods: {
     onImgchange: async function (e) {
-      this.hasImg = false
       const image = await faceapi.bufferToImage(e.target.files[0])
       const img = document.getElementById('Img')
       img.setAttribute('src', image.src)
+      this.hasImg = false
       const canvas = faceapi.createCanvasFromMedia(img)
       const displaySize = {
         width: img.width,
@@ -132,7 +132,7 @@ export default {
 <style lang="scss" scoped>
 .container {
   width: 80%;
-  height: 85%;
+  height: 350px;
   background-color:rgb(51,51,51);
   overflow: auto;
   display: block;
@@ -241,13 +241,12 @@ export default {
 
 .facephoto{
   background:  rgb(51,51,51);
-  height: 85%;
   color:white;
   max-width: 55%;
-  margin: 20px auto;
+  margin: 35px auto;
   border-radius: 10px;
+  padding: 10px 0 20px 0;
   #photo {
-    height: 85%;
     position: relative;
     text-align: center;
     .photo-title{
@@ -258,7 +257,7 @@ export default {
     }
     #Img {
       margin: 20px 0;
-      height: 75%;
+      height: 350px;
     };
   }
   .inputwrap{
@@ -291,8 +290,8 @@ export default {
         cursor: pointer
       }
     }
-    .input-upload:hover{
-      color: #444;
+    .upload:hover{
+      color: rgb(200, 22, 35);
       background: #eee;
       border-color: #ccc;
       text-decoration: none;
