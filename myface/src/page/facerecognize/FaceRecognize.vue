@@ -29,7 +29,7 @@ export default {
 <style lang="scss" scoped>
 .facerecognize {
   background: rgb(51, 51, 51);
-  height: 93.6%;
+  height: 100%;
   color: white;
   max-width: 800px;
   margin: 0 auto;

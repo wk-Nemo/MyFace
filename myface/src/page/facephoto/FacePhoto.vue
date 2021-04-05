@@ -2,6 +2,20 @@
   <div class="facephoto">
     <div id="photo">
       <h3 class="photo-title">请选择你的照片</h3>
+      <div class="container" v-if="hasImg">
+          <div class="eyebox">
+            <div class="eye EL">
+              <div class="pupil"></div>
+            </div>
+            <div class="eye ER">
+              <div class="pupil"></div>
+            </div>
+          </div>
+          <div class="smile">
+            <div class="teeth"></div>
+            <div class="tongue"></div>
+          </div>
+      </div>
       <img
         id="Img"
         :src=imgUrl
@@ -35,20 +49,24 @@
 
 <script>
 import * as faceapi from 'face-api.js'
+import '../../util/jquery'
 import { getModels } from '../../util/getface.js'
 import { MyNDB } from '../../util/getNDB.js'
 const encrypt = require('ordering-encrypt')
+
 export default {
   name: 'FacePhoto',
   data () {
     return {
       imgUrl: '',
+      hasImg: true,
       descriptor: [],
       before_s: ''
     }
   },
   methods: {
     onImgchange: async function (e) {
+      this.hasImg = false
       const image = await faceapi.bufferToImage(e.target.files[0])
       const img = document.getElementById('Img')
       img.setAttribute('src', image.src)
@@ -112,12 +130,124 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.container {
+  width: 80%;
+  height: 85%;
+  background-color:rgb(51,51,51);
+  overflow: auto;
+  display: block;
+  margin: 0 auto;
+  .eyebox {
+    width: 400px;
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 25px;
+    .eye {
+      height: 100px;
+      width: 100px;
+      background-color: rgb(51,51,51);
+      border: 4px solid white;
+      border-radius: 100%;
+      display: inline-block;
+      margin: 0 20px;
+      position: relative;
+      padding: 20px;
+      overflow: hidden;
+      .pupil {
+        height: 25px;
+        width: 25px;
+        border-radius: 100%;
+        display: inline-block;
+        background-color: white;
+        position: absolute;
+        margin-left: -10px;
+        left: 50px;
+        margin: 10px;
+      }
+    }
+  }
+}
+
+.smile {
+  height: 100px;
+  width: 200px;
+  border-radius: 0 0 200px 200px;
+  background: #770f1a;
+  margin: 0 auto;
+  overflow: hidden;
+  transition: all .4s;
+  transform-origin: center;
+  .teeth {
+    background-color: #fff;
+    transition: all .4s;
+    height: 33.33333px;
+    width: 33.33333px;
+    margin-left: 56.66667px;
+    position: relative;
+  }
+  .teeth:after {
+    content: "";
+    background-color: #fff;
+    height: 33.33333px;
+    width: 33.33333px;
+    position: absolute;
+    left: 50px;
+    top: 0;
+    z-index: 10000;
+  }
+  .tongue {
+    transition: all .4s;
+    height: 100px;
+    width: 100px;
+    background-color: pink;
+    border-radius: 100%;
+    margin-top: 40px;
+    margin-left: 15px;
+    display: inline-block;
+    position: relative;
+  }
+  .tongue:after {
+    content: '';
+    height: 100px;
+    width: 100px;
+    background-color: pink;
+    border-radius: 100%;
+    display: inline-block;
+    position: absolute;
+    left: 50px;
+    /*margin-top: 0;
+      margin-left: -($tongueDimensions/3);*/
+  }
+}
+.smile:hover {
+  transition: all .4s;
+  height: 33.33333px;
+  width: 33.33333px;
+  border-radius: 100%;
+  margin-top: 50px;
+}
+.smile:hover .teeth {
+  margin-left: -25px;
+  margin-top: -40px;
+  transition: all .4s;
+}
+.smile:hover .tongue {
+  transition: all .4s;
+  margin-left: -50px;
+  /*margin-top: $tongueDimensions*2;*/
+}
+
 .facephoto{
   background:  rgb(51,51,51);
-  height: 93.6%;
+  height: 85%;
   color:white;
+  max-width: 55%;
+  margin: 20px auto;
+  border-radius: 10px;
   #photo {
-    height: 370px;
+    height: 85%;
     position: relative;
     text-align: center;
     .photo-title{
@@ -128,7 +258,7 @@ export default {
     }
     #Img {
       margin: 20px 0;
-      height: 280px;
+      height: 75%;
     };
   }
   .inputwrap{
