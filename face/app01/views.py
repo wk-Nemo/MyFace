@@ -5,7 +5,7 @@ from random import random, randint
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, HttpResponse
 
-from app01 import models
+import models
 
 
 # 生成指定长度的随机数
@@ -26,12 +26,11 @@ def index(request):
 # 提交数据：username(用户名)，NDB(加密之后的负数据)
 # 返回：json数据类型：userID
 def getface_native(request):
-    # dict = request.POST.nativeData
-    if request.method == 'POST':
-        username = json.loads(request.body).get('username')
-        NDB = json.loads(request.body).get('NDB')
-    # print(dict)
-    # username = dict['username']
+
+    dict = json.loads(request.body)
+    username = dict.get('username')
+    NDB = dict.get('NDB')
+
     userid = random_with_N_digits(6)
     # 将数据写入到文件中
     # filepath = 'static/native/xh.txt'
@@ -48,10 +47,11 @@ def getface_native(request):
 # 提交数据：userID(用户id)，NDB(加密之后的数据)
 # 返回：json数据类型：result（验证结果）
 def faceRecognize_native(request):
-    # dict = request.POST.nativeRecognize
-    dict = request.POST
-    userid = dict['userID']
-    NDB = dict['NDB']
+
+    dict = json.loads(request.body)
+    userid = dict.get('userID')
+    NDB = dict.get('NDB')
+
     # 获取加密数据的存储路径
     filepath = models.user_native.objects.get(uid=userid).data
     f = open('filepath', 'r')
@@ -67,10 +67,12 @@ def faceRecognize_native(request):
 # 返回：json数据类型：userID
 def getface_part(request):
     # dict = request.POST.partData
-    dict = request.POST
-    username = dict['username']
-    part = dict['part']
-    p_string = dict['p']
+    # dict = request.POST
+    dict = json.loads(request.body)
+    username = dict.get('username')
+    part = dict.get('part')
+    p_string = dict.get('p')
+
     userid = random_with_N_digits(6)
     # 将数据写入到文件中
     filepath = 'static/part/' + username + str(userid) + '.txt'
@@ -85,8 +87,8 @@ def getface_part(request):
 # 提交数据：userid（用户id）
 # 返回: json数据类型: p
 def part_p(request):
-    dict = request.GET
-    userid = dict['userID']
+    dict = json.loads(request.body)
+    userid = dict.get('userID')
     # 从数据库中获取userid对应的用户数据
     user_info = models.user_part.objects.get(uid=userid)
     p_string = user_info.p
@@ -98,9 +100,9 @@ def part_p(request):
 # 提交数据：userID（用户ID），part(加密之后的数据)
 # 返回：json数据类型：result（验证结果）
 def faceRecognize_part(request):
-    dict = request.POST.nativeRecognize
-    userid = dict['userID']
-    part = dict['part']
+    dict = json.loads(request.body)
+    userid = dict.get('userID')
+    part = dict.get('part')
     # 获取加密数据的存储路径
     filepath = models.user_part.objects.get(uid=userid).data
     f = open('filepath', 'r')
