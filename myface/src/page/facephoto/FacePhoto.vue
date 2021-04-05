@@ -5,7 +5,6 @@
       <div
         class="container"
         v-if="hasImg"
-        @mousemove="myEye"
       >
           <div class="eyebox">
             <div class="eye EL">
@@ -79,7 +78,13 @@ export default {
       const image = await faceapi.bufferToImage(e.target.files[0])
       const img = document.getElementById('Img')
       img.setAttribute('src', image.src)
-      this.hasImg = false
+      var flag
+      if (this.hasImg === true) {
+        flag = true
+        this.hasImg = false
+      } else {
+        flag = false
+      }
       const canvas = faceapi.createCanvasFromMedia(img)
       const displaySize = {
         width: img.width,
@@ -87,7 +92,11 @@ export default {
       }
       canvas.setAttribute('class', 'mycanvas')
       canvas.style = `position:absolute; left:50%; top:70px; margin-left:${-img.width / 2}px`
-      document.getElementById('photo').append(canvas)
+      const photodiv = document.getElementById('photo')
+      if (flag === false) {
+        document.getElementById('photo').removeChild(document.getElementById('photo').children[2])
+      }
+      photodiv.append(canvas)
       // 设置面部特征点和画布匹配
       faceapi.matchDimensions(canvas, displaySize)
 
