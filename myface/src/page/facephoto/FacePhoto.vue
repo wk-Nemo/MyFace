@@ -2,13 +2,21 @@
   <div class="facephoto">
     <div id="photo">
       <h3 class="photo-title">请选择你的照片</h3>
-      <div class="container" v-if="hasImg">
+      <div
+        class="container"
+        v-if="hasImg"
+        @mousemove="myEye"
+      >
           <div class="eyebox">
             <div class="eye EL">
-              <div class="pupil"></div>
+              <div
+                class="pupil"
+              ></div>
             </div>
             <div class="eye ER">
-              <div class="pupil"></div>
+              <div
+                class="pupil"
+              ></div>
             </div>
           </div>
           <div class="smile">
@@ -61,7 +69,9 @@ export default {
       imgUrl: '',
       hasImg: true,
       descriptor: [],
-      before_s: ''
+      before_s: '',
+      mouseX: 0,
+      mouseY: 0
     }
   },
   methods: {
@@ -163,13 +173,12 @@ export default {
         background-color: white;
         position: absolute;
         margin-left: -10px;
-        left: 50px;
+        left: 50%;
         margin: 10px;
       }
     }
   }
 }
-
 .smile {
   height: 100px;
   width: 200px;
