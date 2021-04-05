@@ -1,4 +1,5 @@
 import string
+import json
 from random import random, randint
 
 from django.http import JsonResponse
@@ -26,9 +27,11 @@ def index(request):
 # 返回：json数据类型：userID
 def getface_native(request):
     # dict = request.POST.nativeData
-    dict = request.POST
-    username = dict['username']
-    NDB = dict['NDB']
+    if request.method == 'POST':
+        username = json.loads(request.body).get('username')
+        NDB = json.loads(request.body).get('NDB')
+    # print(dict)
+    # username = dict['username']
     userid = random_with_N_digits(6)
     # 将数据写入到文件中
     # filepath = 'static/native/xh.txt'
