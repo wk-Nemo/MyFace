@@ -5,7 +5,7 @@ from random import random, randint
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, HttpResponse
 
-import models
+from . import models
 
 
 # 生成指定长度的随机数
