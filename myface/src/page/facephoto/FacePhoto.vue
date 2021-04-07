@@ -57,6 +57,7 @@
 <script>
 import * as faceapi from 'face-api.js'
 import '../../util/jquery'
+import axios from 'axios'
 import { getModels } from '../../util/getface.js'
 import { MyNDB } from '../../util/getNDB.js'
 const encrypt = require('ordering-encrypt')
@@ -69,8 +70,10 @@ export default {
       hasImg: true,
       descriptor: [],
       before_s: '',
-      mouseX: 0,
-      mouseY: 0
+      data: {
+        username: 'wk',
+        NDB: ''
+      }
     }
   },
   methods: {
@@ -121,12 +124,27 @@ export default {
         alert('请先上传照片')
       } else {
         let ndb = new MyNDB(this.descriptor[0])
-        console.log(ndb.before_s)
-        for (let i = 0; i < 128; i++) {
-          console.log(this.descriptor[0][i])
-          console.log(ndb.trueGen[i])
-        }
+        // console.log(ndb.before_s)
+        // for (let i = 0; i < 128; i++) {
+        //   console.log(this.descriptor[0][i])
+        //   console.log(ndb.trueGen[i])
+        // }
+        // JSON.stringify(ndb.NDB)
+        this.data.NDB = ndb.NDB
+        console.log(ndb.NDB)
+        console.log(JSON.stringify(this.data))
+        this.postNDB()
       }
+    },
+    postNDB: function () {
+      axios({
+        method: 'post',
+        url: 'http://127.0.0.1:8000/getface_native/',
+        dataType: 'json',
+        data: JSON.stringify(this.data)
+      }).then((response) => {
+        console.log(response)
+      })
     },
     getOrderingEncrypt: function () {
       if (this.descriptor[0] === undefined) {

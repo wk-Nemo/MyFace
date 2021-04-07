@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>提交请求</title>
+</head>
+
+<body>
+    <h1>添加用户信息</h1>
+
+    <hr>
+
+    <h2>添加用户信息：负数据库</h2>
+
+    <form action="/getface_native/" method="post">
+        <p>姓名：<input type="text" name="username"></p>
+        <!-- 用户数据的相关信息 -->
+        <p>数据：<input type="text" name="NDB"></p>
+        <input type="submit" value="提交全部信息">
+    </form>
+
+    <hr>
+
+    <h2>添加用户信息：局部排序</h2>
+    <form action="/getface_part/" method="post">
+        <p>姓名：<input type="text" name="username"></p>
+        <!-- 用户数据的相关信息 -->
+        <p>数据：<input type="text" name="part"></p>
+        <p>p串：<input type="text" name="p"></p>
+        <input type="submit" value="提交全部信息">
+    </form>
+
+    <hr>
+
+    <h2>数据验证：负数据库</h2>
+    <form action="/faceRecognize_native/" method="post">
+        <p>用户id：<input type="text" name="userID"></p>
+        <!-- 用户数据的相关信息 -->
+        <p>加密数据：<input type="text" name="NDB"></p>
+        <input type="submit" value="提交全部信息">
+    </form>
+</body>
+
+</html>
