@@ -1,3 +1,4 @@
+/* eslint-disable */
 class MyNDB {
   constructor (descriptor) {
     this.originalData = this.getOriginal(descriptor) 
@@ -195,7 +196,7 @@ class MyNDB {
       var t = Math.random()
       //生成类型一
       if(t < this.p[1]) {
-        // console.log("1")
+        // console.log('1')
         var diff1 = 0
         var same1 = 0
         var same2 = 0
