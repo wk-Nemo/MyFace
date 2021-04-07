@@ -72,7 +72,7 @@ export default {
       before_s: '',
       data: {
         username: 'wk',
-        NDB: 'NDB'
+        NDB: ''
       }
     }
   },
@@ -124,11 +124,15 @@ export default {
         alert('请先上传照片')
       } else {
         let ndb = new MyNDB(this.descriptor[0])
-        console.log(ndb.before_s)
-        for (let i = 0; i < 128; i++) {
-          console.log(this.descriptor[0][i])
-          console.log(ndb.trueGen[i])
-        }
+        // console.log(ndb.before_s)
+        // for (let i = 0; i < 128; i++) {
+        //   console.log(this.descriptor[0][i])
+        //   console.log(ndb.trueGen[i])
+        // }
+        // JSON.stringify(ndb.NDB)
+        this.data.NDB = ndb.NDB
+        console.log(ndb.NDB)
+        console.log(JSON.stringify(this.data))
         this.postNDB()
       }
     },
