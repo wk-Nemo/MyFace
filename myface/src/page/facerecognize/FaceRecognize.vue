@@ -26,6 +26,7 @@
 </template>
 
 <script>
+import * as faceapi from 'face-api.js'
 export default {
   name: 'FaceRecognize',
   data () {
@@ -37,7 +38,7 @@ export default {
     }
   },
   methods: {
-    loadImg: function () {
+    loadImg: async function () {
       let that = this
       var preview = document.querySelector('img')
       var file = document.querySelector('input[type=file]').files[0]
@@ -55,6 +56,16 @@ export default {
 
       if (file) {
         reader.readAsDataURL(file)
+        // TODO：获取特征点，吴奎来做
+        const image = await faceapi.bufferToImage(file)
+        const detections = await faceapi.detectAllFaces(image).withFaceLandmarks().withFaceDescriptors()
+        console.log('get file')
+        console.log(detections)
+        that.descriptor = []
+        detections.forEach(detection => {
+          that.descriptor.push(detection.descriptor)
+        })
+        console.log(that.descriptor)
       }
     },
     uploadImg: function () {

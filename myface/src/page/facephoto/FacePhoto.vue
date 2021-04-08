@@ -155,8 +155,23 @@ export default {
         let data = String(ndb.before_s).split('').map(a => { return Number(a) })
         let p = new Array(data.length).fill(0)
         let final = encrypt.decode(data, p)
-        console.log('encrypt data:', final.join(''), 'keydata:', p.join(''))
+        // console.log('encrypt data:', final.join(''), 'keydata:', p.join(''))
         // final为人脸加密后的结果，p为密钥
+        let saveData = {
+          username: '12312313',
+          part: final.join(''),
+          p: p.join('')
+        }
+        axios({
+          method: 'post',
+          url: 'http://127.0.0.1:8000/getface_part/',
+          dataType: 'json',
+          data: JSON.stringify(saveData)
+        }).then((response) => {
+          console.log(response)
+        }).catch((error) => {
+          console.log(error)
+        })
       }
     }
   },
