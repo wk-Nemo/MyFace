@@ -1,11 +1,11 @@
 <template>
   <div class='facerecognize'>
-    <h2>信息</h2>
-    <p>用户ID：{{ userId }}</p>
-    <!-- <h2>用户头像</h2> -->
-    <hr />
+    <div class="usermsg">
+      <div class="usermsg-title">信息</div>
+      <div class="usermsg-userid">用户ID：{{ userId }}</div>
+    </div>
     <div id="photo">
-      <h3 class="photo-title">请选择你的照片</h3>
+      <h3 class="photo-title">请选择对比的照片</h3>
       <div
         class="container"
         v-if="hasImg"
@@ -32,8 +32,6 @@
         :src=imgUrl
       >
     </div>
-    <hr />
-    <!-- <button @click='onImgchange'>上传</button> -->
     <div class="inputwrap">
       <div class="upload">
         上传照片
@@ -56,12 +54,22 @@
         局部排序
       </div>
     </div>
-    <h2>原始脸型数据:</h2>
-    <p class='data-desc' v-if="isShowOrigin">{{ originData }}</p>
-    <button @click='getOriginData'>点击获取</button>
-    <h2>加密脸型数据:</h2>
-    <p class='data-desc' v-if="isShowEncrypt">{{ encryptData }}</p>
-    <button @click='getEncryptData'>点击获取</button>
+    <div class="datawrap">
+      <div class="origindata">
+        <h2>原始脸型数据:</h2>
+        <div class='data-desc' v-if="isShowOrigin">
+          <div v-for="(item, index) in originData" :key="index">
+            {{index}}:{{item}}
+          </div>
+        </div>
+      </div>
+      <div class="encryptdata">
+        <button @click='getOriginData'>点击获取</button>
+        <h2>加密脸型数据:</h2>
+        <p class='data-desc' v-if="isShowEncrypt">{{ encryptData }}</p>
+        <button @click='getEncryptData'>点击获取</button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -77,7 +85,7 @@ export default {
     return {
       num: 0,
       userId: 334307,
-      originData: '',
+      originData: [],
       encryptData: '',
       imgUrl: '',
       hasImg: true,
