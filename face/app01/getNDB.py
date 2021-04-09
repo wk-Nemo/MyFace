@@ -1,6 +1,6 @@
 import math
 import json
-import data_change
+from app01 import data_change
 
 
 class DB:
@@ -174,4 +174,4 @@ def main():
     print(a.Gen)
 
 
-main()
+# main()
