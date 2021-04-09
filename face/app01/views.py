@@ -111,9 +111,11 @@ def faceRecognize_native(request):
     a = getNDB.NDB(NDB_list, flag, specific)
     print(a.primaryGen)
     # 计算欧式距离
-    distance(a, b)
+    result = 'false'
+    if (distance(a, b) < 0.5):
+        result = 'true'
 
-    return JsonResponse({'result': 'true'})
+    return JsonResponse({'result': result})
 
 
 # 用户注册接口 （局部排序）
