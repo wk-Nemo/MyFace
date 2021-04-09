@@ -22,7 +22,7 @@ urlpatterns = [
     path('index/', views.index),
     path('getface_native/', views.getface_native),
     path('getface_part/', views.getface_part),
-    path('faceRecognize_native', views.faceRecognize_native),
-    path('faceRecognize_part', views.faceRecognize_part),
+    path('faceRecognize_native/', views.faceRecognize_native),
+    path('faceRecognize_part/', views.faceRecognize_part),
 
 ]

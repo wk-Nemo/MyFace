@@ -69,6 +69,7 @@ def faceRecognize_native(request):
     dict = json.loads(request.body)
     # 认证数据
     userid = dict.get('userID')
+    print(userid)
     NDB_new = dict.get('NDB')
     specific_new = dict.get('specific')
     flag_new = dict.get('flag')
@@ -80,11 +81,11 @@ def faceRecognize_native(request):
 
     # 生成原始数据
     b = getNDB.NDB(NDB_new_list, flag_new, specific_new)
-    print(b.primaryGen)
+    # print(b.primaryGen)
 
     # 获取加密数据的存储路径
     filepath = models.user_native.objects.get(uid=userid).data
-    with open('filepath', 'r') as f:
+    with open(filepath, 'r') as f:
         data = json.load(f)
         # 接下来进行比对两组数据
     # 原始数据
@@ -100,7 +101,7 @@ def faceRecognize_native(request):
     a = getNDB.NDB(NDB_list, flag, specific)
     print(a.primaryGen)
 
-    return JsonResponse({'result:true'})
+    return JsonResponse({'result':'true'})
 
 
 # 用户注册接口 （局部排序）
@@ -151,4 +152,4 @@ def faceRecognize_part(request):
     data = f.read()
     # 接下来进行比对两组数据
 
-    return JsonResponse({'result:true'})
+    return JsonResponse({'result':true})

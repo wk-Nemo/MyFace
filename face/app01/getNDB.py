@@ -148,7 +148,7 @@ class NDB:
         # 将Gen转换的01串和specific再次异或得到原始串
         s = self.xor(myS.s)
         primaryGen = self.to128Float(s)
-        for i in (0, 128):
+        for i in range(128):
             primaryGen[i] = primaryGen[i] * self.flag[i]
         return primaryGen
 

@@ -71,7 +71,7 @@ export default {
       descriptor: [],
       before_s: '',
       data: {
-        username: 'wk',
+        username: 'jy',
         NDB: '',
         flag: [],
         specific: ''
