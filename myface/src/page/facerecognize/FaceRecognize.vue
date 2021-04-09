@@ -52,6 +52,7 @@
       </div>
       <!-- 局部排序加密 -->
       <div class="upload"
+        @click="getOrderingEncryptData"
       >
         局部排序
       </div>
@@ -70,6 +71,7 @@ import * as faceapi from 'face-api.js'
 import { getModels } from '../../util/getface.js'
 import { MyNDB } from '../../util/getNDB.js'
 import axios from 'axios'
+const encrypt = require('ordering-encrypt')
 
 export default {
   name: 'FaceRecognize',
@@ -79,6 +81,7 @@ export default {
       userId: 334307,
       originData: '',
       encryptData: '',
+      orderingEncryptData: '',
       imgUrl: '',
       hasImg: true,
       descriptor: [],
@@ -149,6 +152,25 @@ export default {
         // console.log(ndb.NDB)
         // console.log(JSON.stringify(this.data))
         this.postNDB()
+      }
+    },
+    getOrderingEncryptData: function () {
+      if (this.descriptor[0] === undefined) {
+        alert('请先上传照片')
+      } else {
+        let ndb = new MyNDB(this.descriptor[0])
+        // console.log(ndb.before_s);
+        let data = String(ndb.before_s).split('').map(a => { return Number(a) })
+        let p = new Array(data.length).fill(0)
+        let final = encrypt.decode(data, p)
+        // console.log('encrypt data:', final.join(''), 'keydata:', p.join(''))
+        // final为人脸加密后的结果，p为密钥
+        let saveData = {
+          username: '12312313',
+          part: final.join(''),
+          p: p.join('')
+        }
+        this.encryptData = saveData.part
       }
     },
     postNDB: function () {
