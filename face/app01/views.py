@@ -1,6 +1,7 @@
 import string
 import json
 from random import random, randint
+import numpy as np
 
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, HttpResponse
@@ -20,6 +21,15 @@ def random_with_N_digits(n):
     range_start = 10 ** (n - 1)
     range_end = (10 ** n) - 1
     return randint(range_start, range_end)
+
+
+# 计算欧氏距离
+def distance(list1, list2):
+    np_1 = np.array(list1)
+    np_2 = np.array(list2)
+
+    ans = np.sqrt(np.sum((np_1 - np_2) ** 2))
+    return ans
 
 
 # Create your views here.
@@ -101,7 +111,7 @@ def faceRecognize_native(request):
     a = getNDB.NDB(NDB_list, flag, specific)
     print(a.primaryGen)
 
-    return JsonResponse({'result':'true'})
+    return JsonResponse({'result': 'true'})
 
 
 # 用户注册接口 （局部排序）
@@ -152,4 +162,4 @@ def faceRecognize_part(request):
     data = f.read()
     # 接下来进行比对两组数据
 
-    return JsonResponse({'result':true})
+    return JsonResponse({'result': true})
