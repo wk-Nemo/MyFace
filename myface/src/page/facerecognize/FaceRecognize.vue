@@ -1,9 +1,9 @@
 <template>
   <div class='facerecognize'>
     <div class="usermsg">
-      <div class="usermsg-title">信息</div>
       <div class="usermsg-userid">用户ID：{{ userId }}</div>
     </div>
+    <div class="line"></div>
     <div id="photo">
       <h3 class="photo-title">请选择对比的照片</h3>
       <div
@@ -55,22 +55,37 @@
         局部排序
       </div>
     </div>
-    <div class="datawrap">
-      <div class="origindata">
-        <h2>原始脸型数据:</h2>
-        <div class='data-desc' v-if="isShowOrigin">
-          <div v-for="(item, index) in originData" :key="index">
-            {{index}}:{{item}}
-          </div>
+
+    <div class="line"></div>
+
+    <div class="originbtn">
+      <h2>原始脸型数据:</h2>
+    </div>
+    <div class="origindata">
+      <div class='data-desc' v-if="isShowOrigin">
+        <div v-for="(item, index) in originData" :key="index">
+          {{index}}:{{item}}
         </div>
       </div>
-      <div class="encryptdata">
-        <button @click='getOriginData'>点击获取</button>
-        <h2>加密脸型数据:</h2>
-        <p class='data-desc' v-if="isShowEncrypt">{{ encryptData }}</p>
-        <button @click='getEncryptData'>点击获取</button>
+      <div class="errororigin" v-else>
+        请先上传照片
       </div>
     </div>
+    
+    <div class="line"></div>
+
+    <div class="encryptbtn">
+      <h2>加密脸型数据:</h2>
+    </div>
+    <div class="encryptdata">
+      <div class='data-desc' v-if="isShowEncrypt">
+        {{ encryptData }}
+      </div>
+      <div class="errorencrypt" v-else>
+        请先进行加密
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -146,6 +161,8 @@ export default {
         faceapi.draw.drawFaceLandmarks(canvas, resizedDetections)
         this.descriptor.push(detection.descriptor)
       })
+      this.originData = this.descriptor[0]
+      this.isShowOrigin = true
     },
     sendNDB: function () {
       if (this.descriptor[0] === undefined) {
@@ -153,12 +170,11 @@ export default {
       } else {
         let ndb = new MyNDB(this.descriptor[0])
         this.encryptData = ndb.NDB
+        this.isShowEncrypt = true
         this.data.NDB = ndb.NDB
         this.data.flag = ndb.flag
         this.data.specific = ndb.specific
         this.data.userId = this.userId
-        // console.log(ndb.NDB)
-        // console.log(JSON.stringify(this.data))
         this.postNDB()
       }
     },
@@ -219,6 +235,9 @@ export default {
 </script>
 
 <style lang='scss' scoped>
+.line {
+  border-bottom: 1px solid white;
+}
 .facerecognize {
   background: #333;
   color: white;
@@ -241,37 +260,12 @@ export default {
     };
   }
 }
-
-button {
-  text-align: center;
-  padding: 0.5em 1em;
-  margin: auto;
-  display: block;
-  background-color: rgb(51, 51, 51);
-  border: 2px solid white;
-  color: white;
-  border-radius: 5px;
-  cursor: pointer;
+.usermsg {
+  padding: 10px;
+  font-size: 20px;
+  line-height: 20px;
+  font-weight: 600;
 }
-
-.info {
-  text-align: center;
-}
-
-.info span {
-  float: right;
-}
-
-.upload-area {
-  margin: 0.5rem;
-}
-
-.data-desc {
-  text-align: center;
-  margin: auto;
-  min-height: 50px;
-}
-
 .inputwrap{
   display: flex;
   justify-content: center;
@@ -310,7 +304,6 @@ button {
     cursor: pointer;
   }
 }
-
 .container {
   width: 80%;
   height: 350px;
@@ -417,5 +410,44 @@ button {
   transition: all .4s;
   margin-left: -50px;
   /*margin-top: $tongueDimensions*2;*/
+}
+
+.originbtn {
+  padding: 10px;
+}
+
+.origindata {
+  height: 350px;
+  overflow: auto;
+  font-family: monospace;
+  margin-top: 10px;
+  padding-left: 10px;
+  .errororigin{
+    font-size: 20px;
+    font-weight: 800;
+    text-align: center;
+    line-height: 350px;
+  }
+}
+.encryptdata {
+  height: 350px;
+}
+
+.encryptbtn {
+  padding: 10px;
+}
+
+.encryptdata {
+  height: 350px;
+  overflow: auto;
+  font-family: monospace;
+  margin-top: 10px;
+  padding-left: 10px;
+  .errorencrypt {
+    font-size: 20px;
+    font-weight: 800;
+    text-align: center;
+    line-height: 350px;
+  }
 }
 </style>
