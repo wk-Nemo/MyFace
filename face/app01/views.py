@@ -5,7 +5,7 @@ from random import random, randint
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, HttpResponse
 
-import models
+from app01 import models
 
 
 # 生成指定长度的随机数
@@ -30,6 +30,7 @@ def getface_native(request):
     dict = json.loads(request.body)
     username = dict.get('username')
     NDB = dict.get('NDB')
+    print(NDB)
 
     userid = random_with_N_digits(6)
     # 将数据写入到文件中

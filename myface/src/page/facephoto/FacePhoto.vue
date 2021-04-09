@@ -131,8 +131,8 @@ export default {
         // }
         // JSON.stringify(ndb.NDB)
         this.data.NDB = ndb.NDB
-        console.log(ndb.NDB)
-        console.log(JSON.stringify(this.data))
+        // console.log(ndb.NDB)
+        // console.log(JSON.stringify(this.data))
         this.postNDB()
       }
     },
