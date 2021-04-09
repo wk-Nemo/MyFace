@@ -8,6 +8,13 @@ from django.shortcuts import render, redirect, HttpResponse
 from app01 import models
 from app01 import getNDB
 
+
+class DB:
+    def __init__(self, p, c):
+        self.p = p
+        self.c = c
+
+
 # 生成指定长度的随机数
 def random_with_N_digits(n):
     range_start = 10 ** (n - 1)
@@ -59,13 +66,21 @@ def getface_native(request):
 # 提交数据：userID(用户id)，NDB(加密之后的数据)
 # 返回：json数据类型：result（验证结果）
 def faceRecognize_native(request):
-
     dict = json.loads(request.body)
     # 认证数据
     userid = dict.get('userID')
-    NDB = dict.get('NDB')
-    
+    NDB_new = dict.get('NDB')
+    specific_new = dict.get('specific')
+    flag_new = dict.get('flag')
 
+    NDB_new_list = []
+    for data in NDB_new:
+        db = DB(data['p'], data['c'])
+        NDB_new_list.append(db)
+
+    # 生成原始数据
+    b = getNDB.NDB(NDB_new_list, flag_new, specific_new)
+    print(b.primaryGen)
 
     # 获取加密数据的存储路径
     filepath = models.user_native.objects.get(uid=userid).data
