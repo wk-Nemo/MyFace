@@ -6,7 +6,7 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect, HttpResponse
 
 from . import models
-
+from getNDB import  *
 
 # 生成指定长度的随机数
 def random_with_N_digits(n):
@@ -26,10 +26,11 @@ def index(request):
 # 提交数据：username(用户名)，NDB(加密之后的负数据)
 # 返回：json数据类型：userID
 def getface_native(request):
-
+    # dict为python数据结构 loads将json字符串转换为python数据结构
     dict = json.loads(request.body)
+    # 获取字典元素
     username = dict.get('username')
-    NDB = dict.get('NDB')
+    # NDB = dict.get('NDB')
 
     userid = random_with_N_digits(6)
     # 将数据写入到文件中
@@ -37,7 +38,7 @@ def getface_native(request):
     filepath = 'static/native/' + username + str(userid) + '.txt'
     print(filepath)
     with open(filepath, 'w') as file_object:
-        file_object.write(NDB)
+        file_object.write(request.body)
     p = models.user_native.objects.get_or_create(uid=userid, name=username, data=filepath)
     return JsonResponse({'userID': userid})
 
@@ -54,9 +55,17 @@ def faceRecognize_native(request):
 
     # 获取加密数据的存储路径
     filepath = models.user_native.objects.get(uid=userid).data
-    f = open('filepath', 'r')
-    data = f.read()
-    # 接下来进行比对两组数据
+    with open('filepath', 'r') as f:
+        data = json.load(f)
+        # 接下来进行比对两组数据
+    ndb = data['NDB']
+    NDB_list = []
+    for data in ndb:
+        db = DB(data['p'], data['c'])
+        NDB_list.append(db)
+
+    a = NDB(NDB_list)
+    print(a.Gen)
 
     return JsonResponse({'result:true'})
 
