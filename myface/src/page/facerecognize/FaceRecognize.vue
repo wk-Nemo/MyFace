@@ -75,14 +75,28 @@
     <div class="line"></div>
 
     <div class="encryptbtn">
-      <h2>加密脸型数据:</h2>
+      <h2>负数据加密脸型数据:</h2>
     </div>
     <div class="encryptdata">
       <div class='data-desc' v-if="isShowEncrypt">
         {{ encryptData }}
       </div>
       <div class="errorencrypt" v-else>
-        请先进行加密
+        请先进行负数据加密
+      </div>
+    </div>
+
+    <div class="line"></div>
+
+    <div class="encryptbtn">
+      <h2>局部排序加密脸型数据:</h2>
+    </div>
+    <div class="encryptdata">
+      <div class='data-desc' v-if="isShowOrder">
+        {{ orderingEncryptData }}
+      </div>
+      <div class="errorencrypt" v-else>
+        请先进行局部排序加密
       </div>
     </div>
 
@@ -111,6 +125,7 @@ export default {
       before_s: '',
       isShowOrigin: false,
       isShowEncrypt: false,
+      isShowOrder: false,
       data: {
         userID: 334307,
         NDB: '',
