@@ -110,6 +110,8 @@ def faceRecognize_native(request):
 
     a = getNDB.NDB(NDB_list, flag, specific)
     print(a.primaryGen)
+    # 计算欧式距离
+    distance(a, b)
 
     return JsonResponse({'result': 'true'})
 
