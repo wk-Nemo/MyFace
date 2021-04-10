@@ -1,7 +1,7 @@
 <template>
   <div class="container">
       <div class="login-wrapper">
-          <div class="header">Signup</div>
+          <div class="header">SignUp</div>
           <div class="form-wrapper">
               <input
                 type="text"
@@ -20,7 +20,7 @@
                   id="in"
                   class="buttons color-control"
                   @click="Signup"
-                >Signup</button>
+                >SignUp</button>
               </div>
           </div>
           <div class="msg">Already has account? <a href='#' @click="sendSingnupMsg">Login</a></div>
@@ -65,9 +65,9 @@ export default {
 <style lang="scss" scoped>
 .container{
   height: 100%;
-  background:url("../../assets/1.jpg");
+  // background:url("../../assets/1.jpg");
   // background-repeat: no-repeat;
-  background-size: auto 28%;
+  // background-size: auto 28%;
 }
 
 .login-wrapper{
@@ -83,6 +83,7 @@ export default {
 }
 
 .login-wrapper .header{
+  color: white;
   font-size: 50px;
   font-weight: bold;
   text-align: center;
@@ -121,12 +122,13 @@ export default {
 }
 
 #in:hover{
-  background-image:linear-gradient(to right,#30cfd0,#330867);
+  background-image:linear-gradient(to right,#585f5f,#151418);
 }
 
 .login-wrapper .msg{
   text-align: center;
   font-size: larger;
   line-height: 105px;
+  color: white;
 }
 </style>

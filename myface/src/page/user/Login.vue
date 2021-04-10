@@ -67,9 +67,9 @@ export default {
 <style lang="scss" scoped>
 .container{
   height: 100%;
-  background:url("../../assets/1.jpg");
+  // background:url("../../assets/1.jpg");
   // background-repeat: no-repeat;
-  background-size: auto 28%;
+  // background-size: auto 28%;
 }
 
 .login-wrapper{
@@ -85,6 +85,7 @@ export default {
 }
 
 .login-wrapper .header{
+  color: white;
   font-size: 50px;
   font-weight: bold;
   text-align: center;
@@ -123,10 +124,11 @@ export default {
 }
 
 #in:hover{
-  background-image:linear-gradient(to right,#30cfd0,#330867);
+  background-image:linear-gradient(to right,#585f5f,#151418);
 }
 
 .login-wrapper .msg{
+  color: white;
   text-align: center;
   font-size: larger;
   line-height: 105px;
