@@ -90,8 +90,9 @@ def faceRecognize_native(request):
         NDB_new_list.append(db)
 
     # 生成原始数据
-    b = getNDB.NDB(NDB_new_list, flag_new, specific_new)
+    b = getNDB.NDB(NDB_new_list, flag_new, specific_new).primaryGen
     # print(b.primaryGen)
+    print(type(b))
 
     # 获取加密数据的存储路径
     filepath = models.user_native.objects.get(uid=userid).data
@@ -108,11 +109,13 @@ def faceRecognize_native(request):
         db = DB(data['p'], data['c'])
         NDB_list.append(db)
 
-    a = getNDB.NDB(NDB_list, flag, specific)
-    print(a.primaryGen)
+    a = getNDB.NDB(NDB_list, flag, specific).primaryGen
+    print(type(a))
     # 计算欧式距离
     result = 'false'
-    if (distance(a, b) < 0.5):
+    dis = distance(a, b)
+    print(dis)
+    if (dis < 0.7):
         result = 'true'
 
     return JsonResponse({'result': result})

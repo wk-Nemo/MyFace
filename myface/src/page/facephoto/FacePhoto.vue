@@ -149,6 +149,7 @@ export default {
       }).then((response) => {
         console.log(response)
         localStorage.setItem('NDB_userID', response.data.userID)
+        alert('负数据库注册成功')
       })
     },
     getOrderingEncrypt: function () {

@@ -115,10 +115,10 @@ export default {
   data () {
     return {
       num: 0,
-      userId: 334307,
+      userId: 962145,
       originData: [],
       encryptData: '',
-      orderingEncryptData: '123',
+      orderingEncryptData: '',
       imgUrl: '',
       hasImg: true,
       descriptor: [],
@@ -127,7 +127,7 @@ export default {
       isShowEncrypt: false,
       isShowOrder: false,
       data: {
-        userID: 334307,
+        userID: undefined,
         NDB: '',
         flag: [],
         specific: ''
@@ -166,6 +166,9 @@ export default {
 
       // 匹配画布尺寸
       const resizedDetections = faceapi.resizeResults(detections, displaySize)
+      this.descriptor = []
+      this.encryptData = ''
+      this.orderingEncryptData = ''
       resizedDetections.forEach(detection => {
         const box = detection.detection.box
         const drawBox = new faceapi.draw.DrawBox(box, {
@@ -189,7 +192,7 @@ export default {
         this.data.NDB = ndb.NDB
         this.data.flag = ndb.flag
         this.data.specific = ndb.specific
-        this.data.userId = this.userId
+        this.data.userID = this.userId
         this.postNDB()
       }
     },
@@ -221,6 +224,11 @@ export default {
         data: JSON.stringify(this.data)
       }).then((response) => {
         console.log(response)
+        if (response.data.result === 'true') {
+          alert('识别成功')
+        } else {
+          alert('识别失败')
+        }
       })
     },
     getOriginData: function () {
@@ -246,6 +254,7 @@ export default {
   },
   mounted () {
     getModels()
+    this.userId = localStorage.getItem('NDB_userID')
   }
 }
 </script>
