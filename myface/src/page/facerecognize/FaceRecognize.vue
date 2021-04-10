@@ -71,7 +71,7 @@
         请先上传照片
       </div>
     </div>
-    
+
     <div class="line"></div>
 
     <div class="encryptbtn">
