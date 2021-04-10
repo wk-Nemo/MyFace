@@ -118,7 +118,7 @@ export default {
       userId: 334307,
       originData: [],
       encryptData: '',
-      orderingEncryptData: '',
+      orderingEncryptData: '123',
       imgUrl: '',
       hasImg: true,
       descriptor: [],
@@ -204,12 +204,13 @@ export default {
         let final = encrypt.decode(data, p)
         // console.log('encrypt data:', final.join(''), 'keydata:', p.join(''))
         // final为人脸加密后的结果，p为密钥
-        let saveData = {
-          username: '12312313',
-          part: final.join(''),
-          p: p.join('')
-        }
-        this.encryptData = saveData.part
+        // let saveData = {
+        //   username: '12312313',
+        //   part: final.join(''),
+        //   p: p.join('')
+        // }
+        this.orderingEncryptData = final
+        this.isShowOrder = true
       }
     },
     postNDB: function () {
@@ -464,5 +465,8 @@ export default {
     text-align: center;
     line-height: 350px;
   }
+}
+.data-desc{
+  word-break: break-word;
 }
 </style>

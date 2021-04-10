@@ -148,6 +148,7 @@ export default {
         data: JSON.stringify(this.data)
       }).then((response) => {
         console.log(response)
+        localStorage.setItem('NDB_userID', response.data.userID)
       })
     },
     getOrderingEncrypt: function () {
@@ -162,7 +163,7 @@ export default {
         // console.log('encrypt data:', final.join(''), 'keydata:', p.join(''))
         // final为人脸加密后的结果，p为密钥
         let saveData = {
-          username: '12312313',
+          username: 'hansome-person',
           part: final.join(''),
           p: p.join('')
         }
@@ -173,6 +174,7 @@ export default {
           data: JSON.stringify(saveData)
         }).then((response) => {
           console.log(response)
+          localStorage.setItem('ordering_userID', response.data.userID)
         }).catch((error) => {
           console.log(error)
         })
