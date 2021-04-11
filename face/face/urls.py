@@ -24,5 +24,6 @@ urlpatterns = [
     path('getface_part/', views.getface_part),
     path('faceRecognize_native/', views.faceRecognize_native),
     path('faceRecognize_part/', views.faceRecognize_part),
-
+    path('sign_in/', views.sign_in),
+    path('login/', views.login),
 ]

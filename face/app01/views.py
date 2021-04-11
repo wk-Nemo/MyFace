@@ -38,27 +38,55 @@ def index(request):
     return render(request, 'index.html')
 
 
+# 用户注册接口
+# 提交类型:post
+# 提交数据：username（用户名）(字符串)，password（密码）（数字）
+# 返回值：uerID（用户账号）（数字）
+def sign_in(request):
+    dict = json.loads(request.body)
+    username = dict.get('username')
+    password = dict.get('password')
+    userid = random_with_N_digits(6)
+    user_info = models.user.objects.get_or_create(uid=userid, name=username, password=password)
+    return JsonResponse({'userID': userid})
+
+
+# 用户登陆接口
+# 提交类型：post
+# 提交数据：userID(用户账号)(数字)，password(密码)(数字)
+# 返回值: result(登陆结果)(布尔类型)
+def login(request):
+    dict = json.loads(request.body)
+    userid = dict.get('userID')
+    password = dict.get('password')
+    user_password = models.user.objects.get(uid=userid).password
+    result = False
+    if password == user_password:
+        result = True
+    return JsonResponse({'result': result})
+
+
 # 用户注册接口 （负数据库）
 # 提交类型：post
-# 提交数据：username(用户名)，NDB(加密之后的负数据)
+# 提交数据：userID(用户账号)（数字），NDB(加密之后的负数据)，flag,specific
 # 返回：json数据类型：userID
 def getface_native(request):
     # dict为python数据结构 loads将json字符串转换为python数据结构
     dict = json.loads(request.body)
-    print(request.body)
+    # print(request.body)
     # 获取字典元素
-    username = dict.get('username')
+    # username = dict.get('username')
+    # NDB = dict.get('NDB')
+    # # print(NDB)
+    # flag = dict.get('flag')
+    # specific = dict.get('specific')
+    # print(flag)
+    # print(specific)
+    # # ndb = getNDB.NDB(NDB, flag, specific)
+    # # print(ndb.primaryGen)
 
-    NDB = dict.get('NDB')
-    # print(NDB)
-    flag = dict.get('flag')
-    specific = dict.get('specific')
-    print(flag)
-    print(specific)
-    # ndb = getNDB.NDB(NDB, flag, specific)
-    # print(ndb.primaryGen)
-
-    userid = random_with_N_digits(6)
+    userid = dict.get('userID')
+    username = models.user.objects.get(uid=userid).name
     # 将数据写入到文件中
     # filepath = 'static/native/xh.txt'
     filepath = 'static/native/' + username + str(userid) + '.json'
@@ -67,14 +95,14 @@ def getface_native(request):
         jsObj = json.dumps(dict)
         file_object.write(jsObj)
     file_object.close()
-    p = models.user_native.objects.get_or_create(uid=userid, name=username, data=filepath)
+    p = models.user_native.objects.get_or_create(uid=userid, data=filepath)
     return JsonResponse({'userID': userid})
 
 
 # 负数据库的数据验证
 # 提交类型：post
-# 提交数据：userID(用户id)，NDB(加密之后的数据)
-# 返回：json数据类型：result（验证结果）
+# 提交数据：userID(用户id)（数字），NDB(加密之后的数据)
+# 返回：json数据类型：result（验证结果）(布尔类型)
 def faceRecognize_native(request):
     dict = json.loads(request.body)
     # 认证数据
@@ -90,6 +118,7 @@ def faceRecognize_native(request):
         NDB_new_list.append(db)
 
     # 生成原始数据
+    # 待认证数据的原始数据
     b = getNDB.NDB(NDB_new_list, flag_new, specific_new).primaryGen
     # print(b.primaryGen)
     print(type(b))
@@ -112,39 +141,38 @@ def faceRecognize_native(request):
     a = getNDB.NDB(NDB_list, flag, specific).primaryGen
     print(type(a))
     # 计算欧式距离
-    result = 'false'
+    result = False
     dis = distance(a, b)
     print(dis)
     if (dis < 0.7):
-        result = 'true'
+        result = True
 
     return JsonResponse({'result': result})
 
 
 # 用户注册接口 （局部排序）
 # 提交类型：post
-# 提交数据：username(用户名)，part(加密之后的数据)
+# 提交数据：userID(用户名)（数字），part(加密之后的数据)
 # 返回：json数据类型：userID
 def getface_part(request):
     # dict = request.POST.partData
     # dict = request.POST
     dict = json.loads(request.body)
-    username = dict.get('username')
+    userid = dict.get('userID')
     part = dict.get('part')
     p_string = dict.get('p')
-
-    userid = random_with_N_digits(6)
+    username = models.user.objects.get(uid=userid).name
     # 将数据写入到文件中
     filepath = 'static/part/' + username + str(userid) + '.txt'
     with open(filepath, 'w') as file_object:
         file_object.write(part)
-    p = models.user_part.objects.get_or_create(uid=userid, name=username, data=filepath, p=p_string)
+    p = models.user_part.objects.get_or_create(uid=userid, data=filepath, p=p_string)
     return JsonResponse({'userID': userid})
 
 
 # 获取 p 字串接口（局部排序）
 # 提交类型:get
-# 提交数据：userid（用户id）
+# 提交数据：userid（用户id）(数字)
 # 返回: json数据类型: p
 def part_p(request):
     dict = json.loads(request.body)
@@ -169,4 +197,4 @@ def faceRecognize_part(request):
     data = f.read()
     # 接下来进行比对两组数据
 
-    return JsonResponse({'result': true})
+    return JsonResponse({'result': True})
