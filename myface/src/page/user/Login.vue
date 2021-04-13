@@ -1,5 +1,10 @@
 <template>
   <div class="container">
+    <div class="left">
+      <div class="left-title">用科技</div>
+      <div class="left-content">让复杂的世界更简单</div>
+    </div>
+    <div class="right">
       <div class="login-wrapper">
           <div class="header">Login</div>
           <div class="form-wrapper">
@@ -25,6 +30,7 @@
           </div>
           <div class="msg">Don't have account? <a href="#" @click="sendLoginMsg">Sign up</a></div>
       </div>
+    </div>
   </div>
 </template>
 
@@ -51,13 +57,15 @@ export default {
           dataType: 'json',
           data: JSON.stringify(data)
         }).then((response) => {
-          this.$emit('func', 3)
-          console.log(response.data)
+          this.$store.commit('changeUserID', response.data.userID)
+          this.$store.commit('changeUserName', response.data.username)
+          this.$store.commit('changeLogStatus', true)
+          this.$router.push('home')
         })
       }
     },
     sendLoginMsg: function () {
-      this.$emit('func', 1)
+      this.$router.push('signup')
     }
   }
 }
@@ -65,30 +73,47 @@ export default {
 
 <style lang="scss" scoped>
 .container{
-  height: 100%;
-  // background:url("../../assets/1.jpg");
-  // background-repeat: no-repeat;
-  // background-size: auto 28%;
-}
-
-.login-wrapper{
-  box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.4);
-  width: 5rem;
-  height: 9rem;
-  border-radius: 15px;
-  padding: 25px 50px;
+  height: 93.6%;
+  background:url("../../assets/3.jpg");
+  background-repeat: no-repeat;
+  background-size: 100% auto;
   position: relative;
-  left:50%;
-  top:50%;
-  transform: translate(-50%,-50%);
-}
-
-.login-wrapper .header{
-  color: white;
-  font-size: 50px;
-  font-weight: bold;
-  text-align: center;
-  line-height: 150px;
+  .left {
+    position: absolute;
+    color: white;
+    top: 40%;
+    left: 30%;
+    transform: translate(-50%);
+    .left-title {
+      font-size: 54px;
+      letter-spacing: 0;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .left-content {
+      font-size: 32px;
+      letter-spacing: 3.81px;
+      font-weight: 300
+    }
+  }
+  .login-wrapper {
+    width: 5rem;
+    height: 9rem;
+    border-radius: 15px;
+    padding: 25px 50px;
+    position: absolute;
+    top: 50%;
+    left: 80%;
+    transform: translate(-50%, -50%);
+    background: rgba(255,255,255,.9);
+    color: black;
+    .header{
+      font-size: 50px;
+      font-weight: bold;
+      text-align: center;
+      line-height: 150px;
+    }
+  }
 }
 
 .login-wrapper .form-wrapper .input-item{
@@ -127,7 +152,6 @@ export default {
 }
 
 .login-wrapper .msg{
-  color: white;
   text-align: center;
   font-size: larger;
   line-height: 105px;

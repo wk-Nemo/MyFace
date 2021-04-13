@@ -6,22 +6,7 @@
         class="container"
         v-if="hasImg"
       >
-          <div class="eyebox">
-            <div class="eye EL">
-              <div
-                class="pupil"
-              ></div>
-            </div>
-            <div class="eye ER">
-              <div
-                class="pupil"
-              ></div>
-            </div>
-          </div>
-          <div class="smile">
-            <div class="teeth"></div>
-            <div class="tongue"></div>
-          </div>
+        <img src="https://cdn.ai.qq.com/ai/page/product/face/img/banner-ico-7706573879.png">
       </div>
       <img
         id="Img"
@@ -191,110 +176,10 @@ export default {
 <style lang="scss" scoped>
 .container {
   width: 80%;
-  height: 350px;
-  background-color:rgb(51,51,51);
+  height: 400px;
   overflow: auto;
   display: block;
   margin: 0 auto;
-  .eyebox {
-    width: 400px;
-    display: block;
-    margin: 0 auto;
-    text-align: center;
-    margin-top: 50px;
-    margin-bottom: 25px;
-    .eye {
-      height: 100px;
-      width: 100px;
-      background-color: rgb(51,51,51);
-      border: 4px solid white;
-      border-radius: 100%;
-      display: inline-block;
-      margin: 0 20px;
-      position: relative;
-      padding: 20px;
-      overflow: hidden;
-      .pupil {
-        height: 25px;
-        width: 25px;
-        border-radius: 100%;
-        display: inline-block;
-        background-color: white;
-        position: absolute;
-        margin-left: -10px;
-        left: 50%;
-        margin: 10px;
-      }
-    }
-  }
-}
-.smile {
-  height: 100px;
-  width: 200px;
-  border-radius: 0 0 200px 200px;
-  background: #770f1a;
-  margin: 0 auto;
-  overflow: hidden;
-  transition: all .4s;
-  transform-origin: center;
-  .teeth {
-    background-color: #fff;
-    transition: all .4s;
-    height: 33.33333px;
-    width: 33.33333px;
-    margin-left: 56.66667px;
-    position: relative;
-  }
-  .teeth:after {
-    content: "";
-    background-color: #fff;
-    height: 33.33333px;
-    width: 33.33333px;
-    position: absolute;
-    left: 50px;
-    top: 0;
-    z-index: 10000;
-  }
-  .tongue {
-    transition: all .4s;
-    height: 100px;
-    width: 100px;
-    background-color: pink;
-    border-radius: 100%;
-    margin-top: 40px;
-    margin-left: 15px;
-    display: inline-block;
-    position: relative;
-  }
-  .tongue:after {
-    content: '';
-    height: 100px;
-    width: 100px;
-    background-color: pink;
-    border-radius: 100%;
-    display: inline-block;
-    position: absolute;
-    left: 50px;
-    /*margin-top: 0;
-      margin-left: -($tongueDimensions/3);*/
-  }
-}
-.smile:hover {
-  transition: all .4s;
-  height: 33.33333px;
-  width: 33.33333px;
-  border-radius: 100%;
-  margin-top: 50px;
-}
-.smile:hover .teeth {
-  margin-left: -25px;
-  margin-top: -40px;
-  transition: all .4s;
-}
-.smile:hover .tongue {
-  transition: all .4s;
-  margin-left: -50px;
-  /*margin-top: $tongueDimensions*2;*/
 }
 
 .facephoto{

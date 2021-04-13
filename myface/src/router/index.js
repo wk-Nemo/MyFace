@@ -4,6 +4,8 @@ import Home from '@/page/Home/Home'
 import FacePhoto from '@/page/facephoto/FacePhoto'
 import FaceVideo from '@/page/facevideo/FaceVideo'
 import FaceRecognize from '@/page/facerecognize/FaceRecognize'
+import Login from '@/page/user/Login'
+import Signup from '@/page/user/Signup'
 
 Vue.use(Router)
 
@@ -12,6 +14,16 @@ export default new Router({
     {
       path: '/',
       redirect: '/home'
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login
+    },
+    {
+      path: '/signup',
+      name: 'Signup',
+      component: Signup
     },
     {
       path: '/home',

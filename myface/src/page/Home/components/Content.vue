@@ -14,7 +14,7 @@
             v-for="(block,index) in item"
             :key=index
           >
-            <img class="section-item-img" :src="block.url"></img>
+            <img class="section-item-img" :src="block.url">
             <div class="section-item-info">
               <div class="section-item-info-title">{{ block.title }}</div>
               <div class="section-item-info-content">{{ block.content }}</div>
@@ -198,7 +198,7 @@ export default {
           content: ''
         }
       ],
-      isActiveIndex: 0,
+      isActiveIndex: 0
     }
   },
   methods: {

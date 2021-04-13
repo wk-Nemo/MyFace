@@ -1,5 +1,10 @@
 <template>
   <div class="container">
+    <div class="left">
+      <div class="left-title">用科技</div>
+      <div class="left-content">让复杂的世界更简单</div>
+    </div>
+    <div class="right">
       <div class="login-wrapper">
           <div class="header">SignUp</div>
           <div class="form-wrapper">
@@ -31,6 +36,7 @@
           </div>
           <div class="msg">Already has account? <a href='#' @click="sendSingnupMsg">Login</a></div>
       </div>
+    </div>
   </div>
 </template>
 
@@ -61,16 +67,15 @@ export default {
           dataType: 'json',
           data: JSON.stringify(data)
         }).then((response) => {
-          this.$emit('func', 3)
-          console.log(response.data)
+          this.$router.push('login')
+          alert('注册成功，你的ID是: ' + response.data.userID)
         })
       } else {
-        console.log(this.username, this.password)
         alert('用户名或密码不能为空')
       }
     },
     sendSingnupMsg: function () {
-      this.$emit('func', 0)
+      this.$router.push('login')
     }
   }
 }
@@ -78,36 +83,53 @@ export default {
 
 <style lang="scss" scoped>
 .container{
-  height: 100%;
-  // background:url("../../assets/1.jpg");
-  // background-repeat: no-repeat;
-  // background-size: auto 28%;
-}
-
-.login-wrapper{
-  box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.4);
-  width: 250px;
-  height: 450px;
-  border-radius: 15px;
-  padding: 25px 50px;
+  height: 93.6%;
+  background:url("../../assets/3.jpg");
+  background-repeat: no-repeat;
+  background-size: 100% auto;
   position: relative;
-  left:50%;
-  top:50%;
-  transform: translate(-50%,-50%);
-}
-
-.login-wrapper .header{
-  color: white;
-  font-size: 50px;
-  font-weight: bold;
-  text-align: center;
-  line-height: 150px;
+  .left {
+    position: absolute;
+    color: white;
+    top: 40%;
+    left: 30%;
+    transform: translate(-50%);
+    .left-title {
+      font-size: 54px;
+      letter-spacing: 0;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .left-content {
+      font-size: 32px;
+      letter-spacing: 3.81px;
+      font-weight: 300
+    }
+  }
+  .login-wrapper {
+    width: 5rem;
+    height: 9rem;
+    border-radius: 15px;
+    padding: 25px 50px;
+    position: absolute;
+    top: 50%;
+    left: 80%;
+    transform: translate(-50%, -50%);
+    background: rgba(255,255,255,.9);
+    color: black;
+    .header{
+      font-size: 50px;
+      font-weight: bold;
+      text-align: center;
+      line-height: 100px;
+    }
+  }
 }
 
 .login-wrapper .form-wrapper .input-item{
   display: block;
   width:100%;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
   border:0;
   padding:10px;
   border-bottom: 2px solid rgb(122, 121, 121);
@@ -143,6 +165,5 @@ export default {
   text-align: center;
   font-size: larger;
   line-height: 105px;
-  color: white;
 }
 </style>

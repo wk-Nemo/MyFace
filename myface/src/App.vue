@@ -1,8 +1,6 @@
 <template>
   <div id="app">
-    <login v-if="status === 0"  @func="toSignup"></login>
-    <signup v-else-if="status === 1" @func="toLogin"></signup>
-    <div style="height: 100%" v-else>
+    <div style="height: 100%">
       <Header></Header>
       <router-view/>
     </div>
@@ -11,27 +9,16 @@
 
 <script>
 import Header from './page/header/Header'
-import Login from '@/page/user/Login'
-import Signup from './page/user/signup.vue'
+
 export default {
   name: 'App',
-  components: {
-    Header,
-    Login,
-    Signup
-  },
   data () {
     return {
-      status: 3
+      userID: ''
     }
   },
-  methods: {
-    toLogin: function (data) {
-      this.status = data
-    },
-    toSignup: function (data) {
-      this.status = data
-    }
+  components: {
+    Header
   }
 }
 </script>
