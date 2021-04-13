@@ -5,7 +5,7 @@ from django.db import models
 class user(models.Model):
     uid = models.FloatField()
     name = models.CharField(max_length=64)
-    password = models.FloatField()
+    password = models.CharField(max_length=64)
 
 
 class user_native(models.Model):
