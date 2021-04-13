@@ -59,11 +59,13 @@ def login(request):
     dict = json.loads(request.body)
     userid = dict.get('userID')
     password = dict.get('password')
-    user_password = models.user.objects.get(uid=userid).password
+    userinfo = models.user.objects.get(uid=userid)
+    user_password = userinfo.password
+    username = userinfo.name
     result = False
     if password == user_password:
         result = True
-    return JsonResponse({'result': result})
+    return JsonResponse({'result': result,'username':username})
 
 
 # 用户注册接口 （负数据库）
