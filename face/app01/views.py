@@ -101,7 +101,7 @@ def getface_native(request):
 
 # 负数据库的数据验证
 # 提交类型：post
-# 提交数据：userID(用户id)（数字），NDB(加密之后的数据)
+# 提交数据：userID(用户id)（数字），NDB(加密之后的数据),specific,flag
 # 返回：json数据类型：result（验证结果）(布尔类型)
 def faceRecognize_native(request):
     dict = json.loads(request.body)
@@ -147,7 +147,7 @@ def faceRecognize_native(request):
     if (dis < 0.7):
         result = True
 
-    return JsonResponse({'result': result})
+    return JsonResponse({'result': result, 'distance': dis})
 
 
 # 用户注册接口 （局部排序）
