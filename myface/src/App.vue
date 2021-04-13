@@ -22,7 +22,7 @@ export default {
   },
   data () {
     return {
-      status: 0
+      status: 3
     }
   },
   methods: {
@@ -41,7 +41,7 @@ export default {
   height: 100%;
 }
 html {
-  background-color: #2d2d2d;
+  /* background-color: #2d2d2d; */
 }
 body{
   height: 100%

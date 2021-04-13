@@ -20,15 +20,16 @@ export default {
 .header{
   height: 40px;
   width: 100%;
-  background: rgb(51,51,51);
+  // background: rgb(51,51,51);
+  background: rgb(29, 28, 28);
   color: white;
   display: flex;
   justify-content: center;
   line-height: 40px;
   // padding: 0 50px 0 50px;
   .header-left{
-    width: 40%;
-    padding: 0 0 0 20%;
+    width: 60%;
+    padding: 0 0 0 180px;
     font-size: 16px;
     font-weight: 600;
   }

@@ -1,36 +1,25 @@
 <template>
   <div class="home">
-    <div class="home-message">
-      <div class="home-title">
-        <p>
-          隐私安全的人脸识别
-        </p>
-      </div>
-      <div class="home-content">
-        <p>
-          不同于传统人脸识别方案
-        </p>
-        <p>
-          我们在最重要的数据处理环节选择将用户数据不可逆加密后存储
-        </p>
-        <p>
-          即使暴露也不必担心安全问题
-        </p>
-      </div>
-      <router-link to='/facephoto' class="home-btn">开始体验</router-link>
-    </div>
+    <Header></Header>
+    <Content></Content>
   </div>
 </template>
 
 <script>
+import Header from './components/Header'
+import Content from './components/Content'
 export default {
-  name: 'Home'
+  name: 'Home',
+  components: {
+    Header,
+    Content
+  }
 }
 </script>
 
 <style lang="scss" scoped>
 .home{
-  background: rgb(51,51,51);
+  // background: rgb(51,51,51);
   height: 93.6%;
   color:white;
   position: relative;

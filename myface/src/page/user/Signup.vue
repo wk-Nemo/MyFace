@@ -7,13 +7,19 @@
                 type="text"
                 placeholder="username"
                 class="input-item"
-                :value="username"
+                v-model="username"
               >
               <input
                 type="password"
                 placeholder="password"
                 class="input-item"
-                :value="password"
+                v-model="password"
+              >
+              <input
+                type="password"
+                placeholder="configpassword"
+                class="input-item"
+                v-model="configpassword"
               >
               <div class="btn">
                 <button
@@ -34,25 +40,33 @@ export default {
   name: 'login',
   data () {
     return {
-      userID: '',
-      password: ''
+      username: '',
+      password: '',
+      configpassword: ''
     }
   },
   methods: {
-    login: function () {
-      if (this.userID !== '' && this.password !== '') {
+    Signup: function () {
+      if (this.username !== '' && this.password !== '') {
+        if (this.password !== this.configpassword) {
+          alert('两次密码不一致')
+        }
         let data = {
-          userID: this.userID,
+          username: this.username,
           password: this.password
         }
         axios({
           method: 'post',
-          url: 'http://127.0.0.1:8000/login/',
+          url: 'http://127.0.0.1:8000/sign_in/',
           dataType: 'json',
           data: JSON.stringify(data)
         }).then((response) => {
-          console.log(response)
+          this.$emit('func', 3)
+          console.log(response.data)
         })
+      } else {
+        console.log(this.username, this.password)
+        alert('用户名或密码不能为空')
       }
     },
     sendSingnupMsg: function () {
@@ -93,7 +107,7 @@ export default {
 .login-wrapper .form-wrapper .input-item{
   display: block;
   width:100%;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
   border:0;
   padding:10px;
   border-bottom: 2px solid rgb(122, 121, 121);

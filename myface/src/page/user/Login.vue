@@ -7,13 +7,13 @@
                 type="text"
                 placeholder="userID"
                 class="input-item"
-                :value="userID"
+                v-model="userID"
               >
               <input
                 type="password"
                 placeholder="password"
                 class="input-item"
-                :value="password"
+                v-model="password"
               >
               <div class="btn">
                 <button
@@ -40,7 +40,6 @@ export default {
   },
   methods: {
     login: function () {
-      this.$emit('func', 3)
       if (this.userID !== '' && this.password !== '') {
         let data = {
           userID: this.userID,
@@ -53,7 +52,7 @@ export default {
           data: JSON.stringify(data)
         }).then((response) => {
           this.$emit('func', 3)
-          console.log(response)
+          console.log(response.data)
         })
       }
     },
