@@ -1,5 +1,14 @@
 <template>
   <div class="facephoto">
+    <div class="banner">
+      <div class="banner-text">
+        <div class="banner-title">MyFace</div>
+        <div class="banner-content">保护你的个人隐私</div>
+      </div>
+      <div class="arrows">
+        <div class="arrows-container"></div>
+      </div>
+    </div>
     <div id="photo">
       <h3 class="photo-title">请选择你的照片</h3>
       <div
@@ -183,12 +192,72 @@ export default {
 }
 
 .facephoto{
-  background:  rgb(51,51,51);
+  // background:  rgb(51,51,51);
   color:white;
-  max-width: 55%;
-  margin: 35px auto;
-  border-radius: 10px;
-  padding: 10px 0 20px 0;
+  height: 100%;
+  .banner {
+    height: 93.6%;
+    background:url("../../assets/7.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    position: relative;
+    .banner-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      .banner-title {
+        font-size: 54px;
+        letter-spacing: 0;
+        font-weight: 700;
+        margin-bottom: 10px;
+      }
+      .banner-content {
+        font-size: 32px;
+        letter-spacing: 3.81px;
+        font-weight: 300;
+      }
+    }
+    .arrows {
+      height: 40px;
+      width: 40px;
+      border: 2px solid white;
+      border-radius: 50%;
+      position: absolute;
+      bottom: 50px;
+      left: 50%;
+      transform: translate(-50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .arrows-container {
+        width: 15px;            
+        height: 15px;            
+        border-right: 2px solid white;            
+        border-top: 2px solid white;            
+        // -webkit-transform: rotate(135deg); /*箭头方向可以自由切换角度*/            
+        // transform: rotate(135deg);
+        animation: dong 1s infinite;
+      }
+      @keyframes dong { 
+        0%{             
+          transform: translate(0px, 0px);
+          -webkit-transform: rotate(135deg); /*箭头方向可以自由切换角度*/            
+          transform: rotate(135deg);     
+        }            
+        50% {                
+          transform: translate(0px, -5px);
+          -webkit-transform: rotate(135deg); /*箭头方向可以自由切换角度*/            
+          transform: rotate(135deg);         
+        }            
+        100% {                
+          transform: translate(0px, 0px);
+          -webkit-transform: rotate(135deg); /*箭头方向可以自由切换角度*/            
+          transform: rotate(135deg);
+        }
+      }
+    }
+  }
   #photo {
     position: relative;
     text-align: center;

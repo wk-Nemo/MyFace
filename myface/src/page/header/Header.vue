@@ -46,7 +46,7 @@ export default {
   height: 40px;
   width: 100%;
   // background: rgb(51,51,51);
-  background: rgb(29, 28, 28);
+  background: rgb(16,23,29);
   color: white;
   display: flex;
   justify-content: center;
