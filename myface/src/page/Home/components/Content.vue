@@ -1,7 +1,7 @@
 <template>
   <div>
-    <Nav></Nav>
-    <div class="section">
+    <Nav id="nav" :class="{fixedNavbar: isfixTab}" :activeList="activeList"></Nav>
+    <div id="section" class="section">
       <div class="section-title">应用场景</div>
       <div class="section-container">
         <div
@@ -23,7 +23,7 @@
         </div>
       </div>
     </div>
-    <div class="news">
+    <div id="news" class="news">
       <div class="news-title">相关新闻</div>
       <div class="news-container">
         <div class="news-nav">
@@ -47,7 +47,7 @@
         </div>
       </div>
     </div>
-    <div class="superiority">
+    <div id="superiority" class="superiority">
       <div class="superiority-title">特色优势</div>
       <div class="superiority-container">
         不同于传统人脸识别方案,我们在最重要的数据处理环节选择将用户数据不可逆加密后存储,即使暴露也不必担心安全问题
@@ -88,6 +88,7 @@ export default {
   },
   data () {
     return {
+      isfixTab: false,
       list: [
         [
           {
@@ -162,10 +163,10 @@ export default {
           content: 'A court in Hangzhou made its final judgment in China’s first-ever lawsuit over the use of facial recognition after both parties filed for appeal, upholding its original judgment and ordering additional data to be deleted.\nIn late 2019, Hangzhou Safari Park replaced its fingerprint-based admission system with one that uses facial recognition, telling customers that they would be refused entry if they did not use the new system.'
         },
         {
-          url: '',
-          photo: '',
-          title: 'The “Face” of Privacy: Facial Recognition, Privacy, and Security ',
-          content: ''
+          url: 'https://www.163.com/dy/article/G7EUSJU40512D3VJ.html',
+          photo: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fask.qcloudimg.com%2Fhttp-save%2Fyehe-1008345%2Fssbp9yj4v9.jpeg&refer=http%3A%2F%2Fask.qcloudimg.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1620909276&t=9b000de8658c4916d59f5f3f8a4a13b3',
+          title: '谁“动”了你的脸——人脸识别技术背后的隐私保护',
+          content: '如今，从案件侦破、交通安检、课堂监控到金融支付、社区门禁、手机解锁，人脸识别技术不断拓展应用场景，但这项给人类带来便捷的技术背后，也蕴藏着巨大的风险。人脸面部特征的重要性不言而喻。2020年10月1日开始实施的新版推荐性国家标准《信息安全技术个人信息安全规范》已经明确了“人脸信息属于生物识别信息，也属于个人敏感信息，收集个人信息时应获得个人信息主体的授权同意”，并进一步指出，越来越多的组织收集、使用个人信息，给生活带来便利的同时，也出现了对个人信息的非法收集、滥用、泄露等问题，个人信息安全面临严重威胁。'
         },
         {
           url: '',
@@ -198,18 +199,45 @@ export default {
           content: ''
         }
       ],
-      isActiveIndex: 0
+      isActiveIndex: 0,
+      activeList: 0
     }
   },
   methods: {
     changeStyle: function (index) {
       this.isActiveIndex = index
+    },
+    handleTabFix () {
+      var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+      // var sectionTop = document.querySelector('#section').offsetTop
+      var newsTop = document.querySelector('#news').offsetTop
+      var superiorityTop = document.querySelector('#superiority').offsetTop
+      scrollTop > 340 ? this.isfixTab = true : this.isfixTab = false
+      if (scrollTop < newsTop) {
+        this.activeList = 0
+      } else if (scrollTop > newsTop && scrollTop < superiorityTop) {
+        this.activeList = 1
+      } else {
+        this.activeList = 2
+      }
     }
+  },
+  mounted () {
+    // document.querySelector('.home').addEventListener('scroll', this.handleTabFix, true)
+    window.addEventListener('scroll', this.handleTabFix, true)
   }
 }
 </script>
 
 <style lang="scss" scoped>
+.fixedNavbar {
+  position: fixed !important;
+  left: 0;
+  right: 0;
+  top: 0;
+  background: white;
+  z-index: 10;
+}
 .section {
   padding-top: 80px;
   margin: 0 auto;
@@ -229,10 +257,12 @@ export default {
         height: 250px;
         margin: 40px 20px;
         width: 400px;
+        transition: transform .5s ease;
         .section-item-img {
           width: 100%;
         }
         .section-item-info {
+          box-shadow: 0 5px 20px 0 rgb(210, 208, 208);
           border: 1px solid #eee;
           padding: 20px 48px 22px;
           height: 120px;
@@ -245,6 +275,10 @@ export default {
             font-size: 8px;
           }
         }
+      }
+      .section-item:hover {
+        cursor: pointer;
+        transform: scale(1.10);
       }
     }
   }

@@ -1,9 +1,9 @@
 <template>
   <div class="nav">
     <div class="container">
-      <div class="item item-active">应用场景</div>
-      <div class="item">相关新闻</div>
-      <div class="item">特色优势</div>
+      <a href="#section" :class="{'item': true, 'item-active': activeList === 0}">应用场景</a>
+      <a href="#news" :class="{'item': true, 'item-active': activeList === 1}">相关新闻</a>
+      <a href="#superiority" :class="{'item': true, 'item-active': activeList === 2}">特色优势</a>
       <div class="item">支持与交流</div>
     </div>
   </div>
@@ -11,7 +11,10 @@
 
 <script>
 export default {
-  name: 'Nav'
+  name: 'Nav',
+  props: {
+    activeList: Number
+  }
 }
 </script>
 
@@ -29,12 +32,13 @@ export default {
       display: inline-block;
       margin-left: 11px;
       margin-right: 31px;
-      line-height: 54px;
+      line-height: 48px;
       cursor: pointer;
       font-size: 10px;
     }
     .item-active{
       font-weight: 800;
+      border-bottom: 2px solid black;
     }
   }
 }

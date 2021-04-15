@@ -5,8 +5,8 @@
       <div class="info">人脸检测与属性分析、人脸对比、人脸搜索、活体检测等能力。灵活应用于金融、泛安防、零售等行业场景，满足身份核验、人脸考勤、闸机通行等业务需求</div>
       <div class="news">不同于传统人脸识别方案,我们在最重要的数据处理环节选择将用户数据不可逆加密后存储,即使暴露也不必担心安全问题</div>
       <div class="btn">
-        <div class="btn-primary">立即使用</div>
-        <div class="btn-document">技术文档</div>
+        <div class="btn-primary" @click="ready">立即使用</div>
+        <a href="https://github.com/wk-Nemo/MyFace" class="btn-document">技术文档</a>
       </div>
     </div>
   </div>
@@ -14,7 +14,12 @@
 
 <script>
 export default {
-  name: 'Header'
+  name: 'Header',
+  methods: {
+    ready: function () {
+      this.$router.push('/facephoto')
+    }
+  }
 }
 </script>
 

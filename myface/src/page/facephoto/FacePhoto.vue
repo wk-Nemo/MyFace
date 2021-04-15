@@ -5,44 +5,44 @@
         <div class="banner-title">MyFace</div>
         <div class="banner-content">保护你的个人隐私</div>
       </div>
-      <div class="arrows">
+      <a href="#photo" class="arrows">
         <div class="arrows-container"></div>
-      </div>
+      </a>
     </div>
-    <div id="photo">
-      <h3 class="photo-title">请选择你的照片</h3>
-      <div
-        class="container"
-        v-if="hasImg"
-      >
-        <img src="https://cdn.ai.qq.com/ai/page/product/face/img/banner-ico-7706573879.png">
-      </div>
-      <img
-        id="Img"
-        :src=imgUrl
-      >
-    </div>
-    <div class="inputwrap">
-      <div class="upload">
-        上传照片
-        <input
-          type="file"
-          id="imageUpload"
-          @change="onImgchange"
+    <div class="wraper">
+      <div id="photo">
+        <h3 class="photo-title">请选择你的照片</h3>
+        <div
+          class="container"
         >
+          <img v-if="hasImg" src="https://cdn.ai.qq.com/ai/page/product/face/img/banner-ico-7706573879.png">
+          <img
+            id="Img"
+          >
+        </div>
       </div>
-      <!-- 负数据加密 -->
-      <div
-        class="upload"
-        @click="getNDB"
-      >
-        负数据库
-      </div>
-      <!-- 局部排序加密 -->
-      <div class="upload"
-        @click="getOrderingEncrypt"
-      >
-        局部排序
+      <div class="inputwrap">
+        <div class="upload">
+          上传照片
+          <input
+            type="file"
+            id="imageUpload"
+            @change="onImgchange"
+          >
+        </div>
+        <!-- 负数据加密 -->
+        <div
+          class="upload"
+          @click="getNDB"
+        >
+          负数据库
+        </div>
+        <!-- 局部排序加密 -->
+        <div class="upload"
+          @click="getOrderingEncrypt"
+        >
+          局部排序
+        </div>
       </div>
     </div>
   </div>
@@ -65,7 +65,7 @@ export default {
       descriptor: [],
       before_s: '',
       data: {
-        username: 'jy',
+        userID: '',
         NDB: '',
         flag: [],
         specific: ''
@@ -74,9 +74,10 @@ export default {
   },
   methods: {
     onImgchange: async function (e) {
+      // 获取照片
       const image = await faceapi.bufferToImage(e.target.files[0])
-      const img = document.getElementById('Img')
-      img.setAttribute('src', image.src)
+
+      // 判断是否上传了照片
       var flag
       if (this.hasImg === true) {
         flag = true
@@ -84,16 +85,23 @@ export default {
       } else {
         flag = false
       }
+
+      // 获取img元素
+      const img = document.querySelector('#Img')
+      img.setAttribute('src', image.src)
+
+      // 创建画布
       const canvas = faceapi.createCanvasFromMedia(img)
       const displaySize = {
         width: img.width,
         height: img.height
       }
-      canvas.setAttribute('class', 'mycanvas')
-      canvas.style = `position:absolute; left:50%; top:70px; margin-left:${-img.width / 2}px`
-      const photodiv = document.getElementById('photo')
+      // canvas.setAttribute('class', 'mycanvas')
+      canvas.style = `position:absolute; left:50%; top:0; transform: translate(-50%)`
+      const photodiv = document.querySelector('#photo .container')
+      // console.log(photodiv)
       if (flag === false) {
-        document.getElementById('photo').removeChild(document.getElementById('photo').children[2])
+        document.querySelector('#photo .container').removeChild(document.querySelector('#photo .container').children[1])
       }
       photodiv.append(canvas)
       // 设置面部特征点和画布匹配
@@ -119,18 +127,15 @@ export default {
       if (this.descriptor[0] === undefined) {
         alert('请先上传照片')
       } else {
+        if (this.$store.state.userID === '') {
+          alert('请先登录账号')
+          return
+        }
+        this.data.userID = this.$store.state.userID
         let ndb = new MyNDB(this.descriptor[0])
-        // console.log(ndb.before_s)
-        // for (let i = 0; i < 128; i++) {
-        //   console.log(this.descriptor[0][i])
-        //   console.log(ndb.trueGen[i])
-        // }
-        // JSON.stringify(ndb.NDB)
         this.data.NDB = ndb.NDB
         this.data.flag = ndb.flag
         this.data.specific = ndb.specific
-        // console.log(ndb.NDB)
-        // console.log(JSON.stringify(this.data))
         this.postNDB()
       }
     },
@@ -183,14 +188,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.container {
-  width: 80%;
-  height: 400px;
-  overflow: auto;
-  display: block;
-  margin: 0 auto;
-}
-
 .facephoto{
   // background:  rgb(51,51,51);
   color:white;
@@ -231,90 +228,93 @@ export default {
       align-items: center;
       justify-content: center;
       .arrows-container {
-        width: 15px;            
-        height: 15px;            
-        border-right: 2px solid white;            
-        border-top: 2px solid white;            
-        // -webkit-transform: rotate(135deg); /*箭头方向可以自由切换角度*/            
+        position: absolute;
+        bottom: 16px;
+        width: 15px;
+        height: 15px;
+        border-right: 2px solid white;
+        border-top: 2px solid white;
+        // -webkit-transform: rotate(135deg);
         // transform: rotate(135deg);
         animation: dong 1s infinite;
       }
-      @keyframes dong { 
-        0%{             
-          transform: translate(0px, 0px);
-          -webkit-transform: rotate(135deg); /*箭头方向可以自由切换角度*/            
-          transform: rotate(135deg);     
-        }            
-        50% {                
-          transform: translate(0px, -5px);
-          -webkit-transform: rotate(135deg); /*箭头方向可以自由切换角度*/            
-          transform: rotate(135deg);         
-        }            
-        100% {                
-          transform: translate(0px, 0px);
-          -webkit-transform: rotate(135deg); /*箭头方向可以自由切换角度*/            
-          transform: rotate(135deg);
+      @keyframes dong {
+        0%{
+          transform: rotate(135deg) translate(0px, 0px);
+        }
+        50% {
+          transform: rotate(135deg) translate(3px, -3px);
+        }
+        100% {
+          transform: rotate(135deg) translate(0px, 0px);
         }
       }
     }
   }
-  #photo {
-    position: relative;
-    text-align: center;
-    .photo-title{
-      padding: 20px 0 10px 0;
-      font-size: 20px;
-      font-weight: 900;
-      line-height: 20px;
-    }
-    #Img {
-      margin: 20px 0;
-      height: 350px;
-    };
-  }
-  .inputwrap{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    .upload{
-      padding: 4px 10px;
-      margin: 10px 45px;
-      height: 20px;
-      line-height: 20px;
+  .wraper {
+    background: rgb(17, 28, 34);
+    #photo {
       position: relative;
-      cursor: pointer;
-      color: #888;
-      background: #fafafa;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      overflow: hidden;
-      display: inline-block;
-      *display: inline;
-      *zoom: 1;
-      width: auto;
-      #imageUpload {
-        position: absolute;
-        font-size: 100px;
-        right: 0;
-        top: 0;
-        opacity: 1;
-        filter: alpha(opacity=0);
-        cursor: pointer
+      text-align: center;
+      height: 88%;
+      .photo-title{
+        padding: 20px 0 10px 0;
+        font-size: 20px;
+        font-weight: 900;
+        line-height: 70px;
+      }
+      .container {
+        width: 80%;
+        height: 400px;
+        overflow: auto;
+        display: block;
+        margin: 0 auto;
+        position: relative;
+        #Img {
+          height: 100%;
+        }
       }
     }
-    .upload:hover{
-      color: rgb(200, 22, 35);
-      background: #eee;
-      border-color: #ccc;
-      text-decoration: none;
-      cursor: pointer;
+    .inputwrap{
+      background: rgb(17, 28, 34);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 120px;
+      .upload{
+        padding: 4px 10px;
+        margin: 10px 45px;
+        height: 20px;
+        line-height: 20px;
+        position: relative;
+        cursor: pointer;
+        color: #888;
+        background: #fafafa;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        overflow: hidden;
+        display: inline-block;
+        *display: inline;
+        *zoom: 1;
+        width: auto;
+        #imageUpload {
+          position: absolute;
+          font-size: 100px;
+          right: 0;
+          top: 0;
+          opacity: 1;
+          filter: alpha(opacity=0);
+          cursor: pointer
+        }
+      }
+      .upload:hover{
+        color: rgb(200, 22, 35);
+        background: #eee;
+        border-color: #ccc;
+        text-decoration: none;
+        cursor: pointer;
+      }
     }
-  }
-}
-
-@media screen and (max-width: 700px){
-  .upload{
-    margin: 10px 20px;
   }
 }
 </style>

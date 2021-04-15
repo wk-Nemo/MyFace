@@ -29,6 +29,7 @@ export default {
 }
 html {
   /* background-color: #2d2d2d; */
+  scroll-behavior: smooth;
 }
 body{
   height: 100%
