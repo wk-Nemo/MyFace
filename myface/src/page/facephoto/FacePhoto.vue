@@ -76,6 +76,7 @@ export default {
     onImgchange: async function (e) {
       // 获取照片
       const image = await faceapi.bufferToImage(e.target.files[0])
+      this.$store.state.userPic = image.src
 
       // 判断是否上传了照片
       var flag
@@ -149,6 +150,7 @@ export default {
         console.log(response)
         localStorage.setItem('NDB_userID', response.data.userID)
         alert('负数据库注册成功')
+        this.$router.push('/facerecognize')
       })
     },
     getOrderingEncrypt: function () {

@@ -5,8 +5,10 @@ import App from './App'
 import router from './router'
 import store from './store/index'
 import '@/assets/style/reset.css'
+import * as echarts from 'echarts'
 
 Vue.config.productionTip = false
+Vue.prototype.$echarts = echarts
 
 /* eslint-disable no-new */
 new Vue({

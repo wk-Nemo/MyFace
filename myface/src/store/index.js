@@ -7,6 +7,7 @@ export default new Vuex.Store({
   state: {
     userID: '',
     username: '',
+    userPci: '',
     isLogin: false
   },
   mutations: {
@@ -18,6 +19,9 @@ export default new Vuex.Store({
     },
     changeLogStatus (state, status) {
       state.isLogin = status
+    },
+    changeUserPic (state, userPic) {
+      state.userPci = userPic
     }
   }
 })

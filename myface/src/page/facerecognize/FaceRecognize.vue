@@ -1,105 +1,75 @@
 <template>
   <div class='facerecognize'>
-    <div class="usermsg">
-      <div class="usermsg-userid">用户ID：{{ userId }}</div>
-    </div>
-    <div class="line"></div>
-    <div id="photo">
-      <h3 class="photo-title">请选择对比的照片</h3>
-      <div
-        class="container"
-        v-if="hasImg"
-      >
-          <div class="eyebox">
-            <div class="eye EL">
-              <div
-                class="pupil"
-              ></div>
-            </div>
-            <div class="eye ER">
-              <div
-                class="pupil"
-              ></div>
-            </div>
-          </div>
-          <div class="smile">
-            <div class="teeth"></div>
-            <div class="tongue"></div>
-          </div>
-      </div>
-      <img
-        id="Img"
-        :src=imgUrl
-      >
-    </div>
-    <div class="inputwrap">
-      <div class="upload">
-        上传照片
-        <input
-          type="file"
-          id="imageUpload"
-          @change="onImgchange"
-        >
-      </div>
-      <!-- 负数据加密 -->
-      <div
-        class="upload"
-        @click="sendNDB"
-      >
-        负数据库
-      </div>
-      <!-- 局部排序加密 -->
-      <div class="upload"
-        @click="getOrderingEncryptData"
-      >
-        局部排序
+    <div class="user-info">
+      <div class="user-info-wraper">
+        <div class="user-pic-wraper">
+          <img class="user-pic" :src="this.$store.state.userPic">
+        </div>
+        <div class="usermsg-userid">用户ID：{{ userId }}</div>
       </div>
     </div>
 
-    <div class="line"></div>
+    <div class="content">
 
-    <div class="originbtn">
-      <h2>原始脸型数据:</h2>
-    </div>
-    <div class="origindata">
-      <div class='data-desc' v-if="isShowOrigin">
-        <div v-for="(item, index) in originData" :key="index">
-          {{index}}:{{item}}
+      <div class="photobox">
+        <div id="photo">
+          <h3 class="photo-title">请选择对比的照片</h3>
+          <div
+            class="container"
+          >
+            <img v-if="hasImg" src="https://cdn.ai.qq.com/ai/page/product/face/img/banner-ico-7706573879.png">
+            <img
+              id="Img"
+            >
+          </div>
+        </div>
+        <div class="inputwrap">
+          <div class="upload">
+            上传照片
+            <input
+              type="file"
+              id="imageUpload"
+              @change="onImgchange"
+            >
+          </div>
+          <!-- 负数据加密 -->
+          <div
+            class="upload"
+            @click="sendNDB"
+          >
+            负数据库
+          </div>
+          <!-- 局部排序加密 -->
+          <div class="upload"
+            @click="getOrderingEncryptData"
+          >
+            局部排序
+          </div>
         </div>
       </div>
-      <div class="errororigin" v-else>
-        请先上传照片
-      </div>
-    </div>
 
-    <div class="line"></div>
-
-    <div class="encryptbtn">
-      <h2>负数据加密脸型数据:</h2>
-    </div>
-    <div class="encryptdata">
-      <div class='data-desc' v-if="isShowEncrypt">
-        {{ encryptData }}
+      <div id="origin" v-if="isShowOrigin">
       </div>
-      <div class="errorencrypt" v-else>
-        请先进行负数据加密
-      </div>
-    </div>
 
-    <div class="line"></div>
-
-    <div class="encryptbtn">
-      <h2>局部排序加密脸型数据:</h2>
-    </div>
-    <div class="encryptdata">
-      <div class='data-desc' v-if="isShowOrder">
-        {{ orderingEncryptData }}
+      <div class="ndbwraper">
+        <div id="ndb0" class="ndb" v-if="isShowEncrypt"></div>
       </div>
-      <div class="errorencrypt" v-else>
-        请先进行局部排序加密
+      <div class="ndbwraper">
+        <div id="ndb1" class="ndb" v-if="isShowEncrypt"></div>
       </div>
-    </div>
 
+      <!-- <div class="encryptbtn">
+        <h2>局部排序加密脸型数据:</h2>
+      </div>
+      <div class="encryptdata">
+        <div class='data-desc' v-if="isShowOrder">
+          {{ orderingEncryptData }}
+        </div>
+        <div class="errorencrypt" v-else>
+          请先进行局部排序加密
+        </div>
+      </div> -->
+    </div>
   </div>
 </template>
 
@@ -108,6 +78,7 @@ import * as faceapi from 'face-api.js'
 import { getModels } from '../../util/getface.js'
 import { MyNDB } from '../../util/getNDB.js'
 import axios from 'axios'
+
 const encrypt = require('ordering-encrypt')
 
 export default {
@@ -118,6 +89,7 @@ export default {
       userId: 962145,
       originData: [],
       encryptData: '',
+      Pos: [],
       orderingEncryptData: '',
       imgUrl: '',
       hasImg: true,
@@ -136,9 +108,10 @@ export default {
   },
   methods: {
     onImgchange: async function (e) {
+      // 获取照片
       const image = await faceapi.bufferToImage(e.target.files[0])
-      const img = document.getElementById('Img')
-      img.setAttribute('src', image.src)
+
+      // 判断是否上传了照片
       var flag
       if (this.hasImg === true) {
         flag = true
@@ -146,16 +119,23 @@ export default {
       } else {
         flag = false
       }
+
+      // 获取img元素
+      const img = document.querySelector('#Img')
+      img.setAttribute('src', image.src)
+
+      // 创建画布
       const canvas = faceapi.createCanvasFromMedia(img)
       const displaySize = {
         width: img.width,
         height: img.height
       }
-      canvas.setAttribute('class', 'mycanvas')
-      canvas.style = `position:absolute; left:50%; top:70px; margin-left:${-img.width / 2}px`
-      const photodiv = document.getElementById('photo')
+      // canvas.setAttribute('class', 'mycanvas')
+      canvas.style = `position:absolute; left:50%; top:0; transform: translate(-50%)`
+      const photodiv = document.querySelector('#photo .container')
+      // console.log(photodiv)
       if (flag === false) {
-        document.getElementById('photo').removeChild(document.getElementById('photo').children[2])
+        document.querySelector('#photo .container').removeChild(document.querySelector('#photo .container').children[1])
       }
       photodiv.append(canvas)
       // 设置面部特征点和画布匹配
@@ -166,9 +146,6 @@ export default {
 
       // 匹配画布尺寸
       const resizedDetections = faceapi.resizeResults(detections, displaySize)
-      this.descriptor = []
-      this.encryptData = ''
-      this.orderingEncryptData = ''
       resizedDetections.forEach(detection => {
         const box = detection.detection.box
         const drawBox = new faceapi.draw.DrawBox(box, {
@@ -181,18 +158,21 @@ export default {
       })
       this.originData = this.descriptor[0]
       this.isShowOrigin = true
+      setTimeout(this.drawOriginData, 0)
     },
     sendNDB: function () {
       if (this.descriptor[0] === undefined) {
         alert('请先上传照片')
       } else {
         let ndb = new MyNDB(this.descriptor[0])
+        this.Pos = ndb.Pos
         this.encryptData = ndb.NDB
         this.isShowEncrypt = true
         this.data.NDB = ndb.NDB
         this.data.flag = ndb.flag
         this.data.specific = ndb.specific
         this.data.userID = this.userId
+        setTimeout(this.drawNdbData, 0)
         this.postNDB()
       }
     },
@@ -224,7 +204,7 @@ export default {
         data: JSON.stringify(this.data)
       }).then((response) => {
         console.log(response)
-        if (response.data.result === 'true') {
+        if (response.data.result === true) {
           alert('识别成功')
         } else {
           alert('识别失败')
@@ -250,6 +230,128 @@ export default {
         }
       }
       this.isShowEncrypt = !this.isShowEncrypt
+    },
+    drawOriginData: function () {
+      // 基于准备好的dom，初始化echarts实例
+      let myChart = this.$echarts.init(document.querySelector('#origin'))
+      let data = []
+      for (let i = 0; i < 128; i++) {
+        data[i] = i + 1
+      }
+      let originData = []
+      for (let i = 0; i < 128; i++) {
+        originData.push(this.originData[i])
+      }
+      // 绘制图表
+      myChart.setOption({
+        title: { text: '原始人脸数据' },
+        xAxis: {
+          data: data
+        },
+        yAxis: {},
+        series: [{
+          name: '原始数据',
+          type: 'bar',
+          data: originData
+        }]
+      })
+    },
+    drawNdbData: function () {
+      let ndbChart0 = this.$echarts.init(document.querySelector('#ndb0'))
+      let ndbChart1 = this.$echarts.init(document.querySelector('#ndb1'))
+      let data = []
+      for (let i = 0; i < 1280; i++) {
+        data[i] = i + 1
+      }
+      console.log(this.Pos)
+      let data0 = []
+      for (let i = 0; i < 1280; i++) {
+        data0[i] = this.Pos[i][0]
+      }
+      let data1 = []
+      for (let i = 0; i < 1280; i++) {
+        data1[i] = this.Pos[i][1]
+      }
+      console.log(data1)
+      let option0 = {
+        title: { text: '负数据加密脸型数据' },
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: {
+            type: 'shadow'
+          }
+        },
+        legend: {
+          data: ['取0次数']
+        },
+        grid: {
+          left: '3%',
+          right: '4%',
+          bottom: '3%',
+          containLabel: true
+        },
+        xAxis: [
+          {
+            type: 'category',
+            data: data
+          }
+        ],
+        yAxis: [
+          {
+            type: 'value'
+          }
+        ],
+        series: [
+          {
+            name: '取0次数',
+            type: 'bar',
+            emphasis: {
+              focus: 'series'
+            },
+            data: data0
+          }
+        ]
+      }
+      let option1 = {
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: {
+            type: 'shadow'
+          }
+        },
+        legend: {
+          data: ['取1次数']
+        },
+        grid: {
+          left: '3%',
+          right: '4%',
+          bottom: '3%',
+          containLabel: true
+        },
+        xAxis: [
+          {
+            type: 'category',
+            data: data
+          }
+        ],
+        yAxis: [
+          {
+            type: 'value'
+          }
+        ],
+        series: [
+          {
+            name: '取1次数',
+            type: 'bar',
+            emphasis: {
+              focus: 'series'
+            },
+            data: data1
+          }
+        ]
+      }
+      ndbChart0.setOption(option0)
+      ndbChart1.setOption(option1)
     }
   },
   mounted () {
@@ -264,196 +366,130 @@ export default {
   border-bottom: 1px solid white;
 }
 .facerecognize {
-  background: #333;
-  color: white;
-  max-width: 55%;
-  margin: 35px auto;
-  border-radius: 10px;
-  padding: 10px 0 20px 0;
-  #photo {
-    position: relative;
-    text-align: center;
-    .photo-title{
-      padding: 20px 0 10px 0;
-      font-size: 20px;
-      font-weight: 900;
-      line-height: 20px;
-    }
-    #Img {
-      margin: 20px 0;
-      height: 350px;
-    };
-  }
-}
-.usermsg {
-  padding: 10px;
-  font-size: 20px;
-  line-height: 20px;
-  font-weight: 600;
-}
-.inputwrap{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  .upload{
-    padding: 4px 10px;
-    margin: 10px 45px;
-    height: 20px;
-    line-height: 20px;
-    position: relative;
-    cursor: pointer;
-    color: #888;
-    background: #fafafa;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    overflow: hidden;
-    display: inline-block;
-    *display: inline;
-    *zoom: 1;
-    width: auto;
-    #imageUpload {
-      position: absolute;
-      font-size: 100px;
-      right: 0;
-      top: 0;
-      opacity: 1;
-      filter: alpha(opacity=0);
-      cursor: pointer
-    }
-  }
-  .upload:hover{
-    color: rgb(200, 22, 35);
-    background: #eee;
-    border-color: #ccc;
-    text-decoration: none;
-    cursor: pointer;
-  }
-}
-.container {
-  width: 80%;
-  height: 350px;
-  background-color:rgb(51,51,51);
-  overflow: auto;
-  display: block;
-  margin: 0 auto;
-  .eyebox {
-    width: 400px;
-    display: block;
-    margin: 0 auto;
-    text-align: center;
-    margin-top: 50px;
-    margin-bottom: 25px;
-    .eye {
-      height: 100px;
-      width: 100px;
-      background-color: rgb(51,51,51);
-      border: 4px solid white;
-      border-radius: 100%;
-      display: inline-block;
-      margin: 0 20px;
+  color: black;
+  .user-info {
+    background: url('https://static3.sycdn.imooc.com/static/img/u/temp1.png') no-repeat center top #000;
+    background-size: cover;
+    height: 100px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .user-info-wraper {
+      width: 60%;
       position: relative;
-      padding: 20px;
-      overflow: hidden;
-      .pupil {
-        height: 25px;
-        width: 25px;
-        border-radius: 100%;
-        display: inline-block;
-        background-color: white;
+      height: 100%;
+      .user-pic-wraper {
         position: absolute;
-        margin-left: -10px;
-        left: 50%;
-        margin: 10px;
+        width: 100px;
+        height: 100px;
+        top: 20%;
+        border-radius: 50%;
+        border: 2px solid white;
+        box-shadow: 0 4px 8px 0 rgb(7, 17, 27);
+        background: white;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .user-pic {
+          text-align: center;
+          height: 100px;
+        }
+      }
+    }
+    .usermsg-userid {
+      color: white;
+      font-size: 20px;
+      font-weight: 600;
+      position: absolute;
+      left: 130px;
+      top: 30%;
+    }
+  }
+  .content {
+    width: 60%;
+    margin: 50px auto;
+    padding-bottom: 50px;
+    .photobox {
+      border-radius: 4px;
+      box-shadow: 0 8px 14px 0 rgb(42, 44, 46);
+      #photo {
+        position: relative;
+        text-align: center;
+        .photo-title{
+          padding: 20px 0 10px 0;
+          font-size: 20px;
+          font-weight: 900;
+          line-height: 60px;
+        }
+        .container {
+          height: 400px;
+          overflow: auto;
+          display: block;
+          margin: 0 auto;
+          position: relative;
+          background: rgb(191, 197, 201);
+          #Img {
+            height: 100%;
+          }
+        }
+      }
+      .inputwrap{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .upload{
+          padding: 4px 10px;
+          margin: 10px 45px;
+          height: 20px;
+          line-height: 20px;
+          position: relative;
+          cursor: pointer;
+          color: #888;
+          background: #fafafa;
+          border: 1px solid #ddd;
+          border-radius: 4px;
+          overflow: hidden;
+          display: inline-block;
+          *display: inline;
+          *zoom: 1;
+          width: auto;
+          #imageUpload {
+            position: absolute;
+            font-size: 100px;
+            right: 0;
+            top: 0;
+            opacity: 1;
+            filter: alpha(opacity=0);
+            cursor: pointer
+          }
+        }
+        .upload:hover{
+          color: rgb(200, 22, 35);
+          background: #eee;
+          border-color: #ccc;
+          text-decoration: none;
+          cursor: pointer;
+        }
+      }
+    }
+    #origin {
+      margin: 50px 0;
+      height: 500px;
+    }
+    .ndbwraper {
+      overflow: auto;
+      width: 100%;
+      .ndb {
+        margin: 50px 0;
+        height: 500px;
+        width: 100%;
       }
     }
   }
 }
-.smile {
-  height: 100px;
-  width: 200px;
-  border-radius: 0 0 200px 200px;
-  background: #770f1a;
-  margin: 0 auto;
-  overflow: hidden;
-  transition: all .4s;
-  transform-origin: center;
-  .teeth {
-    background-color: #fff;
-    transition: all .4s;
-    height: 33.33333px;
-    width: 33.33333px;
-    margin-left: 56.66667px;
-    position: relative;
-  }
-  .teeth:after {
-    content: "";
-    background-color: #fff;
-    height: 33.33333px;
-    width: 33.33333px;
-    position: absolute;
-    left: 50px;
-    top: 0;
-    z-index: 10000;
-  }
-  .tongue {
-    transition: all .4s;
-    height: 100px;
-    width: 100px;
-    background-color: pink;
-    border-radius: 100%;
-    margin-top: 40px;
-    margin-left: 15px;
-    display: inline-block;
-    position: relative;
-  }
-  .tongue:after {
-    content: '';
-    height: 100px;
-    width: 100px;
-    background-color: pink;
-    border-radius: 100%;
-    display: inline-block;
-    position: absolute;
-    left: 50px;
-    /*margin-top: 0;
-      margin-left: -($tongueDimensions/3);*/
-  }
-}
-.smile:hover {
-  transition: all .4s;
-  height: 33.33333px;
-  width: 33.33333px;
-  border-radius: 100%;
-  margin-top: 50px;
-}
-.smile:hover .teeth {
-  margin-left: -25px;
-  margin-top: -40px;
-  transition: all .4s;
-}
-.smile:hover .tongue {
-  transition: all .4s;
-  margin-left: -50px;
-  /*margin-top: $tongueDimensions*2;*/
-}
 
-.originbtn {
-  padding: 10px;
-}
-
-.origindata {
-  height: 350px;
-  overflow: auto;
-  font-family: monospace;
-  margin-top: 10px;
-  padding-left: 10px;
-  .errororigin{
-    font-size: 20px;
-    font-weight: 800;
-    text-align: center;
-    line-height: 350px;
-  }
-}
 .encryptdata {
   height: 350px;
 }

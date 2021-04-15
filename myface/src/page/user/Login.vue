@@ -57,7 +57,7 @@ export default {
           dataType: 'json',
           data: JSON.stringify(data)
         }).then((response) => {
-          this.$store.commit('changeUserID', response.data.userID)
+          this.$store.commit('changeUserID', this.userID)
           this.$store.commit('changeUserName', response.data.username)
           this.$store.commit('changeLogStatus', true)
           this.$router.push('home')
