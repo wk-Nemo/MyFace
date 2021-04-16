@@ -158,7 +158,7 @@ export default {
         alert('请先上传照片')
       } else {
         let ndb = new MyNDB(this.descriptor[0])
-        // console.log(ndb.before_s);
+        // let origin_data = this.descriptor[0]
         let data = String(ndb.before_s).split('').map(a => { return Number(a) })
         let p = new Array(data.length).fill(0)
         let final = encrypt.decode(data, p)
@@ -173,7 +173,11 @@ export default {
           method: 'post',
           url: 'http://127.0.0.1:8000/getface_part/',
           dataType: 'json',
-          data: JSON.stringify(saveData)
+          data: {
+            'userID': this.$store.state.userID,
+            'part': JSON.stringify(saveData),
+            'p': p.toString()
+          }
         }).then((response) => {
           console.log(response)
           localStorage.setItem('ordering_userID', response.data.userID)
@@ -198,7 +202,7 @@ export default {
     height: 93.6%;
     background:url("../../assets/7.jpg");
     background-repeat: no-repeat;
-    background-size: 100% auto;
+    background-size: cover;
     position: relative;
     .banner-text {
       position: absolute;

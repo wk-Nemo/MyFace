@@ -47,7 +47,8 @@ def sign_in(request):
     username = dict.get('username')
     password = dict.get('password')
     userid = random_with_N_digits(6)
-    user_info = models.user.objects.get_or_create(uid=userid, name=username, password=password)
+    user_info = models.user.objects.get_or_create(
+        uid=userid, name=username, password=password)
     return JsonResponse({'userID': userid})
 
 
@@ -65,7 +66,7 @@ def login(request):
     result = False
     if password == user_password:
         result = True
-    return JsonResponse({'result': result,'username':username})
+    return JsonResponse({'result': result, 'username': username})
 
 
 # 用户注册接口 （负数据库）
@@ -168,7 +169,8 @@ def getface_part(request):
     filepath = 'static/part/' + username + str(userid) + '.txt'
     with open(filepath, 'w') as file_object:
         file_object.write(part)
-    p = models.user_part.objects.get_or_create(uid=userid, data=filepath, p=p_string)
+    p = models.user_part.objects.get_or_create(
+        uid=userid, data=filepath, p=p_string)
     return JsonResponse({'userID': userid})
 
 
@@ -192,11 +194,28 @@ def part_p(request):
 def faceRecognize_part(request):
     dict = json.loads(request.body)
     userid = dict.get('userID')
-    part = dict.get('part')
+    part_else: str = dict.get('part')
     # 获取加密数据的存储路径
     filepath = models.user_part.objects.get(uid=userid).data
-    f = open('filepath', 'r')
-    data = f.read()
-    # 接下来进行比对两组数据
 
-    return JsonResponse({'result': True})
+    f = open(filepath, 'r')
+    data = json.loads(f.read())
+    f.close()
+
+    part_else_list: list = json.loads(part_else)
+
+    # 接下来进行比对两组数据
+    part_this_data = data['part']
+    part_this_data_list = [int(i) for i in part_this_data]
+
+    print('part_else_list', part_else_list)
+    print('part_this_data_list', part_this_data_list)
+
+    part_distance = distance(part_else_list, part_this_data_list)
+
+    result = part_distance < 10000
+    print(part_distance)
+    if result:
+        return JsonResponse({'result': True})
+    else:
+        return JsonResponse({'result': False})

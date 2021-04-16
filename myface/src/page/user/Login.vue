@@ -76,7 +76,7 @@ export default {
   height: 93.6%;
   background:url("../../assets/3.jpg");
   background-repeat: no-repeat;
-  background-size: 100% auto;
+  background-size: cover;
   position: relative;
   .left {
     position: absolute;
