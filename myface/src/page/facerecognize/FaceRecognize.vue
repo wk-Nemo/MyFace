@@ -58,17 +58,8 @@
         <div id="ndb1" class="ndb" v-if="isShowEncrypt"></div>
       </div>
 
-      <!-- <div class="encryptbtn">
-        <h2>局部排序加密脸型数据:</h2>
+      <div id='order' class="encryptdata">
       </div>
-      <div class="encryptdata">
-        <div class='data-desc' v-if="isShowOrder">
-          {{ orderingEncryptData }}
-        </div>
-        <div class="errorencrypt" v-else>
-          请先进行局部排序加密
-        </div>
-      </div> -->
     </div>
   </div>
 </template>
@@ -194,7 +185,53 @@ export default {
         // }
         this.orderingEncryptData = final
         this.isShowOrder = true
+        setTimeout(this.drawOrderChart, 0)
+        this.postOrder()
       }
+    },
+    postOrder: function () {
+      axios({
+        method: 'post',
+        url: 'http://127.0.0.1:8000/faceRecognize_part/',
+        dataType: 'json',
+        data: {
+          'userID': this.$store.state.userID,
+          'part': JSON.stringify(this.orderingEncryptData)
+        }
+      }).then((response) => {
+        console.log(response)
+        if (response.data.result === true) {
+          alert('识别成功')
+        } else {
+          alert('识别失败')
+        }
+      })
+    },
+    drawOrderChart: function () {
+      // console.log('drawOrderChart>query#order', document.querySelector('#order'))
+      let orderCharts = this.$echarts.init(document.querySelector('#order'))
+      let xAxisData = []
+      for (let i = 0; i < this.orderingEncryptData.length; i++) {
+        xAxisData.push(i)
+      }
+      // 绘制图表
+      orderCharts.setOption(
+        {
+          title: { text: '局部排序加密脸型数据' },
+          xAxis: {
+            type: 'category',
+            data: xAxisData
+          },
+          yAxis: {
+            type: 'value'
+          },
+          series: [{
+            data: this.orderingEncryptData,
+            type: 'line',
+            smooth: true
+          }]
+        }
+      )
     },
     postNDB: function () {
       axios({
@@ -488,6 +525,11 @@ export default {
       }
     }
   }
+}
+
+#order{
+  overflow: auto;
+  height: 500px;
 }
 
 .encryptdata {
