@@ -181,8 +181,11 @@ export default {
         }).then((response) => {
           console.log(response)
           localStorage.setItem('ordering_userID', response.data.userID)
+          alert('局部排序注册成功')
+          this.$router.push('/facerecognize')
         }).catch((error) => {
           console.log(error)
+          alert('上传失败')
         })
       }
     }

@@ -58,7 +58,7 @@
         <div id="ndb1" class="ndb" v-if="isShowEncrypt"></div>
       </div>
 
-      <div id='order' class="encryptdata">
+      <div id='order' class="encryptdata" v-if="isShowOrder">
       </div>
     </div>
   </div>
@@ -77,7 +77,7 @@ export default {
   data () {
     return {
       num: 0,
-      userId: 962145,
+      userId: '',
       originData: [],
       encryptData: '',
       Pos: [],
@@ -135,6 +135,8 @@ export default {
       // 获取照片上的所有人脸并存入数组
       const detections = await faceapi.detectAllFaces(image).withFaceLandmarks().withFaceDescriptors()
 
+      this.descriptor = []
+
       // 匹配画布尺寸
       const resizedDetections = faceapi.resizeResults(detections, displaySize)
       resizedDetections.forEach(detection => {
@@ -147,6 +149,7 @@ export default {
         faceapi.draw.drawFaceLandmarks(canvas, resizedDetections)
         this.descriptor.push(detection.descriptor)
       })
+      console.log(this.descriptor[0])
       this.originData = this.descriptor[0]
       this.isShowOrigin = true
       setTimeout(this.drawOriginData, 0)
@@ -174,6 +177,7 @@ export default {
         let ndb = new MyNDB(this.descriptor[0])
         // console.log(ndb.before_s);
         let data = String(ndb.before_s).split('').map(a => { return Number(a) })
+        console.log(data)
         let p = new Array(data.length).fill(0)
         let final = encrypt.decode(data, p)
         // console.log('encrypt data:', final.join(''), 'keydata:', p.join(''))
