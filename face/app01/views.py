@@ -88,6 +88,7 @@ def getface_native(request):
     # # print(ndb.primaryGen)
 
     userid = dict.get('userID')
+    print(userid)
     username = models.user.objects.get(uid=userid).name
     # 将数据写入到文件中
     # filepath = 'static/native/xh.txt'
