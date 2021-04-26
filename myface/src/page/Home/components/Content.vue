@@ -240,7 +240,7 @@ export default {
   color: black;
   width: 75%;
   .section-title {
-    font-size: 20px;
+    font-size: 0.7rem;
     text-align: center;
   }
   .section-container {
@@ -250,7 +250,7 @@ export default {
       margin: 20px 0;
       .section-item {
         flex: auto;
-        height: 250px;
+        height: 8rem;
         margin: 40px 20px;
         width: 400px;
         transition: transform .5s ease;
@@ -261,14 +261,14 @@ export default {
           box-shadow: 0 5px 20px 0 rgb(210, 208, 208);
           border: 1px solid #eee;
           padding: 20px 48px 22px;
-          height: 120px;
+          height: 3rem;
           .section-item-info-title {
-            font-size: 15px;
+            font-size: 0.4rem;
             margin-bottom: 20px;
           }
           .section-item-info-content{
             color: #999;
-            font-size: 8px;
+            font-size: 0.3rem;
           }
         }
       }
@@ -280,19 +280,19 @@ export default {
   }
 }
 .news {
-  padding-top: 180px;
+  padding-top: 4rem;
   margin: 0 auto;
   color: black;
   width: 75%;
   .news-title {
-    font-size: 20px;
+    font-size: 0.7rem;
     text-align: center;
   }
   .news-container {
-    margin-top: 20px;
+    margin-top: 1rem;
     display: flex;
     .news-nav {
-      width: 200px;
+      width: 20%;
       background: rgb(247, 247, 247);
       padding: 20px 0;
       .news-nav-item {
@@ -300,9 +300,9 @@ export default {
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-        height: 20px;
-        font-size: 8px;
-        line-height: 20px;
+        height: 0.5rem;
+        font-size: 0.3rem;
+        line-height: 0.5rem;
         color: #666;
       }
       .news-nav-item-active {
@@ -327,13 +327,13 @@ export default {
         padding-right: 20px;
         flex: 1;
         .news-content-title{
-          font-size: 16px;
+          font-size: 0.4rem;
           font-weight: 600;
         }
         .content {
           margin: 20px 0;
-          font-size: 6px;
-          line-height: 17px;
+          font-size: 0.3rem;
+          line-height: 0.4rem;
         }
       }
       .news-content-right {
@@ -351,16 +351,16 @@ export default {
   color: black;
   width: 75%;
   .superiority-title {
-    font-size: 20px;
+    font-size: 0.7rem;
     text-align: center;
   }
   .superiority-container {
     margin: 20px 0;
+    font-size: 0.3rem;
     text-align: center;
     .encrypt {
       display: flex;
-      height: 500px;
-      margin: 20px 0;
+      margin: 50px 0;
       .ndb {
         flex: 1;
         position: relative;
@@ -371,23 +371,23 @@ export default {
           left: 50%;
           transform: translate(-50%);
           .ndb-title-img {
-            width: 30px;
-            height: 30px;
+            width: 0.7rem;
+            height: 0.7rem;
             background-image: url("https://ai.bdstatic.com/file/D0E2AF8227C24812A26B9AC1FDE8D647");
-            background-size: 30px 30px;
+            background-size: 0.7rem 0.7rem;
           }
           .ndb-title-msg {
-            font-size: 18px;
+            font-size: 0.5rem;
             font-weight: 900;
-            line-height: 30px;
+            line-height: 0.5rem;
             margin-left: 20px;
           }
         }
         .ndb-content {
           padding: 10px;
           margin-top: 50px;
-          font-size: 6px;
-          line-height: 17px;
+          font-size: 0.3rem;
+          line-height: 0.5rem;
           text-align: left;
         }
       }
@@ -405,22 +405,22 @@ export default {
           transform: translate(-50%);
           .part-title-img {
             background-image: url("https://ai.bdstatic.com/file/A58A8DDBEB6D41698E2E2579B9EB406B");
-            width: 30px;
-            height: 30px;
-            background-size: 30px 30px;
+            width: 0.7rem;
+            height: 0.7rem;
+            background-size: 0.7rem 0.7rem;
           }
           .part-title-msg {
-            font-size: 18px;
+            font-size: 0.5rem;
             font-weight: 900;
-            line-height: 30px;
+            line-height: 0.5rem;
             margin-left: 20px;
           }
         }
         .part-content {
           padding: 10px;
           margin-top: 50px;
-          font-size: 6px;
-          line-height: 17px;
+          font-size: 0.3rem;
+          line-height: 0.5rem;
           text-align: left;
         }
       }

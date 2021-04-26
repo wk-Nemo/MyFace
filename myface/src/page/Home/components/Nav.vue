@@ -4,7 +4,6 @@
       <a href="#section" :class="{'item': true, 'item-active': activeList === 0}">应用场景</a>
       <a href="#news" :class="{'item': true, 'item-active': activeList === 1}">相关新闻</a>
       <a href="#superiority" :class="{'item': true, 'item-active': activeList === 2}">特色优势</a>
-      <div class="item">支持与交流</div>
     </div>
   </div>
 </template>
@@ -20,7 +19,7 @@ export default {
 
 <style lang="scss" scoped>
 .nav{
-  height: 50px;
+  height: 1rem;
   box-shadow: 0 2px 6px 0 rgb(202, 199, 199);
   position: relative;
   .container{
@@ -32,9 +31,9 @@ export default {
       display: inline-block;
       margin-left: 11px;
       margin-right: 31px;
-      line-height: 48px;
+      font-size: 0.35rem;
+      line-height: 1rem;
       cursor: pointer;
-      font-size: 10px;
     }
     .item-active{
       font-weight: 800;

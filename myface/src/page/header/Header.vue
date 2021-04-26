@@ -4,7 +4,6 @@
       <div class="logo">MyFace</div>
       <router-link class="header-right-item" to='/home'>首页</router-link>
       <router-link class="header-right-item" to='/facephoto'>照片录取</router-link>
-      <router-link class="header-right-item" to='/facevideo'>视频录取</router-link>
       <router-link class="header-right-item" to='/facerecognize'>信息</router-link>
     </div>
     <div class="header-right" v-if="!this.$store.state.isLogin">
@@ -43,19 +42,19 @@ export default {
 
 <style lang="scss" scoped>
 .header{
-  height: 40px;
+  height: 1rem;
   width: 100%;
   // background: rgb(51,51,51);
   background: rgb(16,23,29);
   color: white;
   display: flex;
   justify-content: center;
-  line-height: 40px;
+  line-height: 1rem;
+  font-size: 0.5rem;
   // padding: 0 50px 0 50px;
   .header-left{
     width: 60%;
-    padding: 0 0 0 200px;
-    font-size: 16px;
+    padding: 0 0 0 7rem;
     font-weight: 600;
     display: flex;
     height: 100%;
@@ -63,9 +62,9 @@ export default {
       margin-right: 50px;
     }
     a{
-      font-size: 12px;
+      font-size: 0.32rem;
       display: inline-block;
-      line-height: 40px;
+      line-height: 1rem;
       color:white;
       margin: 0 10px;
     }
@@ -74,15 +73,15 @@ export default {
     }
   }
   .header-right{
+    font-size: 0.32rem;
     width: 35%;
-    font-size: 12px;
     font-weight: 600;
     height: 100%;
     display: flex;
     position: relative;
     a{
       display: inline-block;
-      line-height: 40px;
+      line-height: 1rem;
       color:white;
       margin: 0 10px;
     }
@@ -116,21 +115,6 @@ export default {
       .userlist {
         display: block;
       }
-    }
-  }
-}
-
-@media screen and (max-width: 700px){
-  .header{
-    display: flex;
-    justify-content: left;
-    .header-left{
-      width: 53%;
-      padding:0;
-      text-align: center;
-    }
-    .header-right{
-      width:80%;
     }
   }
 }

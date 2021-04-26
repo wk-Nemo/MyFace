@@ -19,12 +19,10 @@ export default {
 
 <style lang="scss" scoped>
 .home{
-  // background: rgb(51,51,51);
-  height: 93.6%;
   color:white;
   position: relative;
   .home-message{
-    height:100%;
+    height: 100%;
     .home-title{
       height: 35%;
       position: relative;

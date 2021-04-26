@@ -26,7 +26,7 @@ export default {
 <style lang="scss" scoped>
 .header {
   background-image: url("https://ai.bdstatic.com/file/2DB693AACDDE49C0940410B3FB74DFA0") !important;
-  height: 300px;
+  height: 10rem;
   background: no-repeat 50%;
   background-size: cover;
   overflow: hidden;
@@ -36,27 +36,27 @@ export default {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 400px;
+    width: 30%;
     transform: translate(-50%,-50%);
-    padding-right: 450px;
+    padding-right: 15rem;
     .title {
-      font-size: 40px;
-      line-height: 90px;;
+      font-size: 1rem;
+      line-height: 1.8rem;;
     }
     .info {
-      font-size: 8px;
-      line-height: 15px;
+      font-size: 0.3rem;
+      line-height: 0.4rem;
       margin: 10px 0;
     }
     .news {
-      font-size: 8px;
+      font-size: 0.3rem;
+      line-height: 0.4rem;
       color: #faad15;
-      line-height: 15px;
       margin: 10px 0;
     }
     .btn {
       display: flex;
-      font-size: 8px;
+      font-size: 0.4rem;
       margin-top: 26px;
       .btn-primary {
         background-color: rgb(3,111,226);

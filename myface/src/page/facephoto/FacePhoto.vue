@@ -213,20 +213,20 @@ export default {
       left: 50%;
       transform: translate(-50%, -50%);
       .banner-title {
-        font-size: 54px;
+        font-size: 1.8rem;
         letter-spacing: 0;
         font-weight: 700;
         margin-bottom: 10px;
       }
       .banner-content {
-        font-size: 32px;
+        font-size: 0.6rem;
         letter-spacing: 3.81px;
         font-weight: 300;
       }
     }
     .arrows {
-      height: 40px;
-      width: 40px;
+      height: 1rem;
+      width: 1rem;
       border: 2px solid white;
       border-radius: 50%;
       position: absolute;
@@ -262,18 +262,21 @@ export default {
   }
   .wraper {
     background: rgb(17, 28, 34);
+    height: 100%;
     #photo {
       position: relative;
       text-align: center;
       height: 88%;
       .photo-title{
-        padding: 20px 0 10px 0;
-        font-size: 20px;
+        padding: 0.7rem 0 0.5rem 0;
+        font-size: 0.7rem;
         font-weight: 900;
         line-height: 70px;
       }
       .container {
         width: 80%;
+        top: 40%;
+        transform: translate(0, -50%);
         height: 400px;
         overflow: auto;
         display: block;
@@ -289,12 +292,13 @@ export default {
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 120px;
+      // height: 120px;
       .upload{
         padding: 4px 10px;
         margin: 10px 45px;
-        height: 20px;
-        line-height: 20px;
+        height: 0.6rem;
+        font-size: 0.4rem;
+        line-height: 0.6rem;
         position: relative;
         cursor: pointer;
         color: #888;

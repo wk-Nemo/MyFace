@@ -411,7 +411,7 @@ export default {
   .user-info {
     background: url('https://static3.sycdn.imooc.com/static/img/u/temp1.png') no-repeat center top #000;
     background-size: cover;
-    height: 100px;
+    height: 2rem;
     width: 100%;
     display: flex;
     align-items: center;
@@ -422,8 +422,8 @@ export default {
       height: 100%;
       .user-pic-wraper {
         position: absolute;
-        width: 100px;
-        height: 100px;
+        width: 2.5rem;
+        height: 2.5rem;
         top: 20%;
         border-radius: 50%;
         border: 2px solid white;
@@ -435,23 +435,23 @@ export default {
         align-items: center;
         .user-pic {
           text-align: center;
-          height: 100px;
+          height: 2.5rem;
         }
       }
     }
     .usermsg-userid {
       color: white;
-      font-size: 20px;
+      font-size: 0.5rem;
       font-weight: 600;
       position: absolute;
-      left: 130px;
+      left: 3rem;
       top: 30%;
     }
   }
   .content {
     width: 60%;
-    margin: 50px auto;
-    padding-bottom: 50px;
+    margin: 2rem auto;
+    padding-bottom: 1rem;
     .photobox {
       border-radius: 4px;
       box-shadow: 0 8px 14px 0 rgb(42, 44, 46);
@@ -460,12 +460,12 @@ export default {
         text-align: center;
         .photo-title{
           padding: 20px 0 10px 0;
-          font-size: 20px;
+          font-size: 0.7rem;
           font-weight: 900;
-          line-height: 60px;
+          line-height: 1.5rem;
         }
         .container {
-          height: 400px;
+          height: 11rem;
           overflow: auto;
           display: block;
           margin: 0 auto;
@@ -483,8 +483,9 @@ export default {
         .upload{
           padding: 4px 10px;
           margin: 10px 45px;
-          height: 20px;
-          line-height: 20px;
+          height: 1rem;
+          line-height: 1rem;
+          font-size: 0.4rem;
           position: relative;
           cursor: pointer;
           color: #888;
@@ -516,15 +517,15 @@ export default {
       }
     }
     #origin {
-      margin: 50px 0;
-      height: 500px;
+      margin: 1rem 0;
+      height: 15rem;
     }
     .ndbwraper {
       overflow: auto;
       width: 100%;
       .ndb {
-        margin: 50px 0;
-        height: 500px;
+        margin: 1rem 0;
+        height: 15rem;
         width: 100%;
       }
     }
@@ -533,7 +534,8 @@ export default {
 
 #order{
   overflow: auto;
-  height: 500px;
+  height: 15rem;
+  margin: 1rem 0;
 }
 
 .encryptdata {

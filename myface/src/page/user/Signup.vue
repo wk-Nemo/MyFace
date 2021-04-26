@@ -83,7 +83,7 @@ export default {
 
 <style lang="scss" scoped>
 .container{
-  height: 93.6%;
+  height: 94.7%;
   background:url("../../assets/3.jpg");
   background-repeat: no-repeat;
   background-size: cover;
