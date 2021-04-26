@@ -53,7 +53,7 @@ export default {
         }
         axios({
           method: 'post',
-          url: 'http://127.0.0.1:8000/login/',
+          url: 'http://myface.kingfish404.cn/login/',
           dataType: 'json',
           data: JSON.stringify(data)
         }).then((response) => {
