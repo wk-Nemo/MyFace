@@ -55,7 +55,7 @@ def sign_in(request):
 # 用户登陆接口
 # 提交类型：post
 # 提交数据：userID(用户账号)(数字)，password(密码)(数字)
-# 返回值: result(登陆结果)(布尔类型)
+# 返回值: result(登陆结果)(布尔类型),username(用户名)(字符串)
 def login(request):
     dict = json.loads(request.body)
     userid = dict.get('userID')

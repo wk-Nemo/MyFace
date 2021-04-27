@@ -63,7 +63,7 @@ export default {
         }
         axios({
           method: 'post',
-          url: 'http://127.0.0.1:8000/sign_in/',
+          url: 'http://myface.kingfish404.cn/sign_in/',
           dataType: 'json',
           data: JSON.stringify(data)
         }).then((response) => {

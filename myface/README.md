@@ -2,20 +2,18 @@
 
 > A Vue.js project
 
-## Build Setup
+
+## 提前准备
+1. node版本：14.15.1
+2. vue版本：2.5.2
+3. vue/cli本版：3.12.1
+
+## 运行步骤
 
 ``` bash
-# install dependencies
+# 1.安装相关依赖
 npm install
 
-# serve with hot reload at localhost:8080
+# 2.运行
 npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
 ```
-
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
