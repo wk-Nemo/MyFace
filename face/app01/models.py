@@ -16,4 +16,4 @@ class user_native(models.Model):
 class user_part(models.Model):
     uid = models.FloatField()
     data = models.CharField(max_length=64)
-    p = models.CharField(max_length=64)
+    p = models.CharField(max_length=1024)

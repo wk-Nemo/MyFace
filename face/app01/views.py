@@ -196,6 +196,7 @@ def faceRecognize_part(request):
     dict = json.loads(request.body)
     userid = dict.get('userID')
     part_else: str = dict.get('part')
+    print('faceRecognize_part:',userid,part_else)
     # 获取加密数据的存储路径
     filepath = models.user_part.objects.get(uid=userid).data
 
@@ -214,7 +215,7 @@ def faceRecognize_part(request):
 
     part_distance = distance(part_else_list, part_this_data_list)
 
-    result = part_distance < 10000
+    result = part_distance < 49
     print(part_distance)
     if result:
         return JsonResponse({'result': True})
