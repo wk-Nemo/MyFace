@@ -53,7 +53,7 @@ export default {
         }
         axios({
           method: 'post',
-          url: 'http://myface.kingfish404.cn/login/',
+          url: 'https://web.kingfish404.cn/login/',
           dataType: 'json',
           data: JSON.stringify(data)
         }).then((response) => {

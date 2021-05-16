@@ -196,7 +196,7 @@ export default {
     postOrder: function () {
       axios({
         method: 'post',
-        url: 'http://myface.kingfish404.cn/faceRecognize_part/',
+        url: 'https://web.kingfish404.cn/faceRecognize_part/',
         dataType: 'json',
         data: {
           'userID': this.$store.state.userID,
@@ -240,7 +240,7 @@ export default {
     postNDB: function () {
       axios({
         method: 'post',
-        url: 'http://myface.kingfish404.cn/faceRecognize_native/',
+        url: 'https://web.kingfish404.cn/faceRecognize_native/',
         dataType: 'json',
         data: JSON.stringify(this.data)
       }).then((response) => {

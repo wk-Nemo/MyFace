@@ -50,17 +50,17 @@
     <div id="superiority" class="superiority">
       <div class="superiority-title">特色优势</div>
       <div class="superiority-container">
-        不同于传统人脸识别方案,我们在最重要的数据处理环节选择将用户数据不可逆加密后存储,即使暴露也不必担心安全问题
+        <!-- 不同于传统人脸识别方案,我们在最重要的数据处理环节选择将用户数据不可逆加密后存储,即使暴露也不必担心安全问题 -->
         <div class="encrypt">
           <div class="ndb">
             <div class="ndb-title">
               <div class="ndb-title-img"></div>
               <div class="ndb-title-msg">负数据库加密</div>
             </div>
-            <img src="@/assets/ndb.png" style="width: 100%; margin-top:38px"/>
+            <!-- <img src="@/assets/ndb.png" style="width: 100%; margin-top:38px"/> -->
             <div class="ndb-content">
               目前很多算法被证明是不安全的，无法同时满足不可逆性、可撤销性和不可连接性。而本算法的创新之处在于将负数据库和聚合函数相结合，在不同的应用程序中引入不同的个性化参数，并采用p-hidden算法生成负数据库，使得不同应用中的认证数据之间不可进行交叉匹配，同时满足上述三种特性。
-此外，一些已有的方案并未考虑用户提交的人脸凭证数据安全的问题。本算法在用户提交的人脸信息生成负数据库后删除原始人脸信息，仅将转化的负数据库传递给后端，利用负数据库的相似度估算方法和储存的负数据库信息进行比对，达到验证的效果。由于传递的是负数据库并且在传递给后端前时就已经删除了原始信息，因此即使在传递的过程中泄露也无法得到人脸生物信息，从而保证了人脸数据的安全。
+
             </div>
           </div>
           <div class="line"></div>
@@ -69,11 +69,31 @@
               <div class="part-title-img"></div>
               <div class="part-title-msg">局部排序</div>
             </div>
-            <img src="@/assets/part.png" style="width: 100%; margin-top:38px"/>
+            <!-- <img src="@/assets/part.png" style="width: 100%; margin-top:38px"/> -->
             <div class="part-content">
               我们提出了一种使用局部排序的人脸特征保护方法，可以同时满足国际标准ISO/IEC 24745对生物识别模板提出的不可逆性、可撤销性和不相关性，并且该方法可以获得良好的识别性能。
 本方法首先将人脸数据与应用程序特定的字符串按位执行异或运算；然后将执行的结果划分为块，将块划分为组，每个组中的块根据其十进制值进行排序；最后将原始块转换成排序值进行存储，删除原始数据和中间数据。
             </div>
+          </div>
+        </div>
+      </div>
+      <div class="superiority-footer">
+        <div class="question box">
+          <div class="title">问题</div>
+          <div class="content">用户人脸信息隐私泄露风险高，传统加密方法需要进行解密</div>
+        </div>
+        <div class="method box">
+          <div class="title">方法</div>
+          <div class="content">
+            <p>负数据库生成算法，采用基于负数据库的欧式距离计算进行识别；局部排序算法，采用基于局部排序的距离计算公式</p>
+          </div>
+        </div>
+        <div class="result box">
+          <div class="title">
+            目的
+          </div>
+          <div class="content">
+            将人脸信息加密后无需解密，直接在密文上操作。保证识别正确率的同时保护了用户的人脸数据隐私。
           </div>
         </div>
       </div>
@@ -142,7 +162,7 @@ export default {
       news: [
         {
           url: 'https://medium.com/datavisor/the-face-of-privacy-facial-recognition-privacy-and-security-483ede676267',
-          photo: 'https://miro.medium.com/max/2400/1*NizGOvrl6B0js8KnX468ww.png',
+          photo: 'https://img-blog.csdnimg.cn/2021051610093095.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzk1MDE0Mg==,size_16,color_FFFFFF,t_70',
           title: 'The “Face” of Privacy: Facial Recognition, Privacy, and Security ',
           content: 'Digital privacy is one side of a two-sided policy coin. Virtually all attention to date has been focused on developing legal and regulatory remedies to address this pervasive public concern'
         },
@@ -160,13 +180,13 @@ export default {
         },
         {
           url: 'https://www.scmp.com/tech/policy/article/3129226/chinas-first-facial-recognition-lawsuit-comes-end-new-ruling-and-new',
-          photo: 'https://i.loli.net/2021/04/13/mk1jqUHLwbztXBi.png',
+          photo: 'https://img-blog.csdnimg.cn/20210516101044518.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzk1MDE0Mg==,size_16,color_FFFFFF,t_70',
           title: 'China’s first facial-recognition lawsuit comes to an end with new ruling and new questions about the fate of individuals’ data',
           content: 'A court in Hangzhou made its final judgment in China’s first-ever lawsuit over the use of facial recognition after both parties filed for appeal, upholding its original judgment and ordering additional data to be deleted.\nIn late 2019, Hangzhou Safari Park replaced its fingerprint-based admission system with one that uses facial recognition, telling customers that they would be refused entry if they did not use the new system.'
         },
         {
           url: 'https://www.163.com/dy/article/G7EUSJU40512D3VJ.html',
-          photo: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fask.qcloudimg.com%2Fhttp-save%2Fyehe-1008345%2Fssbp9yj4v9.jpeg&refer=http%3A%2F%2Fask.qcloudimg.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1620909276&t=9b000de8658c4916d59f5f3f8a4a13b3',
+          photo: 'https://img-blog.csdnimg.cn/20210516101241245.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzk1MDE0Mg==,size_16,color_FFFFFF,t_70',
           title: '谁“动”了你的脸——人脸识别技术背后的隐私保护',
           content: '如今，从案件侦破、交通安检、课堂监控到金融支付、社区门禁、手机解锁，人脸识别技术不断拓展应用场景，但这项给人类带来便捷的技术背后，也蕴藏着巨大的风险。人脸面部特征的重要性不言而喻。2020年10月1日开始实施的新版推荐性国家标准《信息安全技术个人信息安全规范》已经明确了“人脸信息属于生物识别信息，也属于个人敏感信息，收集个人信息时应获得个人信息主体的授权同意”，并进一步指出，越来越多的组织收集、使用个人信息，给生活带来便利的同时，也出现了对个人信息的非法收集、滥用、泄露等问题，个人信息安全面临严重威胁。'
         },
@@ -346,7 +366,8 @@ export default {
   }
 }
 .superiority {
-  padding-top: 80px;
+  padding-top: 200px;
+  padding-bottom: 200px;
   margin: 0 auto;
   color: black;
   width: 75%;
@@ -355,7 +376,7 @@ export default {
     text-align: center;
   }
   .superiority-container {
-    margin: 20px 0;
+    margin: 100px 0;
     font-size: 0.3rem;
     text-align: center;
     .encrypt {
@@ -424,6 +445,46 @@ export default {
           text-align: left;
         }
       }
+    }
+  }
+  .superiority-footer {
+    display: flex;
+    /* align-items: center; */
+    justify-content: center;
+    .box {
+      height: 3rem;
+      padding: 0.5rem 1rem;
+      width: 25%;
+      cursor: pointer;
+      border: 1px solid #eee;
+      .title {
+        font-size: 0.5rem;
+        margin-bottom: 0.5rem;
+        font-weight:800;
+      }
+      .content {
+        font-size: 0.3rem;
+        line-height: 0.5rem;
+      }
+    }
+    .box:hover {
+      box-shadow: 0 5px 20px 0 #d2d0d0;
+      .title{
+        color: rgb(26,115,232);
+      }
+    }
+    .question {
+      margin-right: 1rem;
+      flex-shrink: 0;
+      order: 1;
+    }
+    .method {
+      margin-right: 1rem;
+      order: 2;
+    }
+    .result {
+      flex-shrink: 0;
+      order: 3;
     }
   }
 }
